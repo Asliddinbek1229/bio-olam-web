@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}<title>Kirish</title>{% endblock title %}
+
+{% block content %}
+
+<section class="form-container">
+
+    <form action="#" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       <h3>Saytga kiring</h3>
+       <p>Username <span>*</span></p>
+       <input type="text" name="username" placeholder="username ni kiriting..." required maxlength="50" class="box">
+       <p>Parol <span>*</span></p>
+       <input type="password" name="password" placeholder="parolni kiriting..." required maxlength="20" class="box">
+       <input type="submit" value="login new" name="submit" class="btn">
+    </form>
+ 
+ </section>
+
+{% endblock content %}

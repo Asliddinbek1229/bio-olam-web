@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bioolam-site/venv"
+VIRTUAL_ENV="/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bio-olam-web/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

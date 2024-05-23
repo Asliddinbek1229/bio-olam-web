@@ -5,7 +5,7 @@
 
 <section class="form-container">
 
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
        {% csrf_token %}
        <h3>Saytga kiring</h3>
        <p>Username <span>*</span></p>
@@ -14,7 +14,22 @@
        <input type="password" name="password" placeholder="parolni kiriting..." required maxlength="20" class="box">
        <input type="submit" value="login new" name="submit" class="btn">
     </form>
- 
+
  </section>
+
+ {% if messages %}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    {% for message in messages %}
+      Swal.fire({
+        position: 'center',
+        icon: '{{ message.tags }}',
+        title: '{{ message }}',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    {% endfor %}
+  </script>
+{% endif %}
 
 {% endblock content %}

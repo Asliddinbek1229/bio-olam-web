@@ -1349,8 +1349,10 @@ section{
    z-index: 1;
 }
 
-#logout-btn:hover .toltipText {
+#logout-btn:hover .toltipText,
+#logout-btn:hover i{
    visibility: visible;
+   color: #eee;
 }
 
 

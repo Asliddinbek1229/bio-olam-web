@@ -1,4 +1,4 @@
-#!/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bioolam-site/venv/bin/python3
+#!/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bio-olam-web/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

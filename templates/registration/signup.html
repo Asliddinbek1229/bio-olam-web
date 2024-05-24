@@ -1,7 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}<title>Ro'yxatdan o'tish</title>{% endblock title %}
 
+
 {% block content %}
+
 <section class="form-container">
     <div class="signup-container">
       <form action="{% url 'register_user' %}" method="post">
@@ -26,10 +29,16 @@
          <div class="form-group">
                <label for="id_password">Parol <span>*</span></label>
                <input type="password" name="password" id="id_password" placeholder="Parolingiz..." required class="box">
+               <span class="password-toggle" onclick="togglePassword('id_password', 'togglePasswordIcon1')">
+                  <i class="fa fa-eye" id="togglePasswordIcon1"></i>
+              </span>
          </div>
          <div class="form-group">
                <label for="id_password2">Parolni tasdiqlang <span>*</span></label>
                <input type="password" name="password2" id="id_password2" placeholder="Parolingizni tasdiqlang" required class="box">
+               <span class="password-toggle" onclick="togglePassword('id_password', 'togglePasswordIcon1')">
+                  <i class="fa fa-eye" id="togglePasswordIcon1"></i>
+              </span>
          </div>
          <div class="form-group">
                <input type="submit" value="Register" class="btn">

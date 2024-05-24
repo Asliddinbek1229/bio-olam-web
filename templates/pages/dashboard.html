@@ -11,11 +11,11 @@
     <div class="info">
  
        <div class="user">
-          <img src="{% static 'images/user.png' %}" alt="">
+          <img src="{{ user.profile.photo.url }}" alt="">
           <h3>{{ user.first_name }} {{ user.last_name }}</h3>
           <p>{{ user.email }}</p>
-          <p>student</p>
-          <a href="#" class="inline-btn">profilni tahrirlash</a>
+          <p>{{ user.profile.job }}</p>
+          <a href="{% url "edit_user_profile" %}" class="inline-btn">profilni tahrirlash</a>
           <a href="{% url "password_change" %}" class="inline-btn" id="btn-signup">Parolni almashtirish</a>
        </div>
     

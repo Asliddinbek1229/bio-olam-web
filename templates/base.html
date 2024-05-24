@@ -14,6 +14,7 @@
    <link rel="stylesheet" href="{% static 'css/style.css' %}">
    <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
    <link type="text/css" href="{% static 'sweetalert2/sweetalert2.min.css' %}">
+   {% block head %}{% endblock head %}
 
 </head>
 <body>
@@ -22,7 +23,7 @@
    
    <section class="flex">
 
-      <a href="home.html" class="logo">BioOlam.</a>
+      <a href="{% url "home_page" %}" class="logo">BioOlam.</a>
 
       <form action="search.html" method="post" class="search-form">
          <input type="text" name="search_box" required placeholder="kurslarni qidirish..." maxlength="100">
@@ -64,14 +65,17 @@
    </div>
    {% if request.user.is_authenticated %}
       <div class="profile">
-         <img src="{% static 'images/user.png' %}" class="image" alt="User">
-         <h3 class="name">Asliddin Dagaraliyev</h3>
+         {% if user.profile.photo %}
+            <img src="{{ user.profile.photo.url }}" class="image" alt="User">
+         {% else %}
+            <img src="{% static "images/user.png" %}" class="image" alt="User">
+         {% endif %}
+         <h3 class="name">{{ user.first_name }} {{ user.last_name }}</h3>
          <p class="role">Dasturchi</p>
          <a href="{% url "dashboard_user" %}" class="btn">Profilni ko'rish</a>
       </div>
    {% else %}
       <div class="profile">
-         <img src="{% static 'images/user.png' %}" class="image" alt="User">
          <h3 class="name">Saytga kirmagansiz!!!</h3>
          <a href="{% url "login" %}" class="btn" id="btn-login">Kirish</a>
          <a href="{% url "register_user" %}" class="btn" id="btn-signup">Ro'yxatdan o'tish</a>
@@ -79,11 +83,14 @@
    {% endif %}
 
    <nav class="navbar">
-      <a href="home.html"><i class="fas fa-home"></i><span>Uy</span></a>
-      <a href="about.html"><i class="fas fa-question"></i><span>Biz haqimizda</span></a>
+      <a href="{% url "home_page" %}"><i class="fas fa-home"></i><span>Uy</span></a>
+      <a href="{% url "about_page" %}"><i class="fas fa-question"></i><span>Biz haqimizda</span></a>
       <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Kurslar</span></a>
-      <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>Ustozlar</span></a>
+      <a href="{% url "teachers_view" %}"><i class="fas fa-chalkboard-user"></i><span>Ustozlar</span></a>
       <a href="contact.html"><i class="fas fa-headset"></i><span>Biz bilan aloqa</span></a>
+      {% if request.user.is_staff %}
+         <a href="{% url "add_teacher" %}">Teacher qo'shish</a>
+      {% endif %}
    </nav>
 
 </div>
@@ -99,6 +106,7 @@
 
 <!-- custom js file link  -->
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/my_script.js' %}"></script>
 <script src="{% static 'sweetalert2/sweetalert2.all.min.js' %}"></script>
 <script src="{% static 'sweetalert2/sweetalert2.min.js' %}"></script>
 {% if messages %}

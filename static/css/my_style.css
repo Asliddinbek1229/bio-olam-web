@@ -203,6 +203,12 @@
 
 .form-control {
     padding-right: 40px; /* Ikon bilan to'qnashuvni oldini olish uchun kengroq padding */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 .form-container2 {
@@ -288,4 +294,30 @@
     display: block;
     background: #000;
 }
+
+/* forma uchun */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.password-group .box {
+    padding-right: 2.5rem; /* space for the icon */
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.password-toggle:hover {
+    color: #333;
+} 
+
 

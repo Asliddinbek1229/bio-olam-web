@@ -2,6 +2,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from .models import Profile, Teachers
 
 from .validators import validate_not_too_similar, validate_not_common_password, validate_not_entirely_numeric
 
@@ -61,3 +62,31 @@ class UserRegisterForm(forms.ModelForm):
         if data.get('password') != data.get('password2'):
             raise forms.ValidationError("Parolingiz bir-biriga mos kelmadi!!!")
         return data.get('password2')
+    
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo', 'date_of_birth', 'job', 'bio']
+        widgets = {
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'job': forms.Select(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teachers
+        fields = ['user', 'teacher_type', 'bio',]

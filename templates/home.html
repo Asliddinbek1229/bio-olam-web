@@ -11,7 +11,7 @@
     <div class="box-container">
  
        <div class="box">
-          <h3 class="title">likes and comments</h3>
+          <h3 class="title">Layklar va izohlar</h3>
           <p class="likes">total likes : <span>25</span></p>
           <a href="#" class="inline-btn">view likes</a>
           <p class="likes">total comments : <span>12</span></p>
@@ -21,28 +21,20 @@
        </div>
  
        <div class="box">
-          <h3 class="title">top categories</h3>
+          <h3 class="title">Mashxur bo'limlar</h3>
           <div class="flex">
-             <a href="#"><i class="fas fa-code"></i><span>development</span></a>
-             <a href="#"><i class="fas fa-chart-simple"></i><span>business</span></a>
-             <a href="#"><i class="fas fa-pen"></i><span>design</span></a>
-             <a href="#"><i class="fas fa-chart-line"></i><span>marketing</span></a>
-             <a href="#"><i class="fas fa-music"></i><span>music</span></a>
-             <a href="#"><i class="fas fa-camera"></i><span>photography</span></a>
-             <a href="#"><i class="fas fa-cog"></i><span>software</span></a>
-             <a href="#"><i class="fas fa-vial"></i><span>science</span></a>
+            {% for category in categories  %}
+            <a href="#"><i class="fa-solid fa-layer-group"></i><span>{{ category.name }}</span></a>
+            {% endfor %}
           </div>
        </div>
  
        <div class="box">
-          <h3 class="title">popular topics</h3>
+          <h3 class="title">Mashxur kurslar</h3>
           <div class="flex">
-             <a href="#"><i class="fab fa-html5"></i><span>HTML</span></a>
-             <a href="#"><i class="fab fa-css3"></i><span>CSS</span></a>
-             <a href="#"><i class="fab fa-js"></i><span>javascript</span></a>
-             <a href="#"><i class="fab fa-react"></i><span>react</span></a>
-             <a href="#"><i class="fab fa-php"></i><span>PHP</span></a>
-             <a href="#"><i class="fab fa-bootstrap"></i><span>bootstrap</span></a>
+            {% for subcategory in subcategories %}
+            <a href="#"><i class="fab fa-html5"></i><span>{{ subcategory.name }}</span></a>
+            {% endfor %}
           </div>
        </div>
  
@@ -60,7 +52,7 @@
  
  <section class="courses">
  
-    <h1 class="heading">our courses</h1>
+    <h1 class="heading">Bizning kurslar</h1>
  
     <div class="box-container">
  
@@ -112,7 +104,7 @@
           <a href="playlist.html" class="inline-btn">view playlist</a>
        </div>
  
-       <div class="box">
+       <div class="box">sizi kartezga 
           <div class="tutor">
              <img src="{% static 'images/pic-5.jpg' %}" alt="">
              <div class="info">
@@ -163,7 +155,7 @@
     </div>
  
     <div class="more-btn">
-       <a href="courses.html" class="inline-option-btn">view all courses</a>
+       <a href="{% url "courses_view" %}" class="inline-option-btn">view all courses</a>
     </div>
  
  </section>

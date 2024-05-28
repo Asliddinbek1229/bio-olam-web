@@ -63,3 +63,6 @@ class Teachers(models.Model):
     student_num = models.IntegerField(default=0)
     likes_num = models.IntegerField(default=0)
     comments_num = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.teacher_type}"

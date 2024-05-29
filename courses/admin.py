@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Subcategory, Videos
+from .models import Category, Subcategory, Videos, Comments
 
 # Register your models here.
 @admin.register(Category)
@@ -27,13 +27,13 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Subcategory)
 class SubcategoryAdmin(admin.ModelAdmin):
     list_display = [
-        'id',
         'category',
         'name',
-        'image',
+        'teacher',
         'videos_count',
         'course_duration',
         'student_count',
+        'created_at',
     ]
 
 
@@ -41,11 +41,27 @@ class SubcategoryAdmin(admin.ModelAdmin):
 class VideosAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'description',
         'subcategory',
         'time',
         'video',
     ]
 
 
-
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = [
+        'video',
+        'user',
+        'text',
+        'created_at',
+    ]
+    list_filter = [
+        'video',
+        'text',
+        'created_at',
+    ]
+    search_fields = [
+        'video',
+        'text',
+        'created_at',
+    ]

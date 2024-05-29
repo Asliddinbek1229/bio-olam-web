@@ -6,6 +6,8 @@ from .forms import LoginForm, CustomPasswordChangeForm, UserRegisterForm, UserEd
 from django.views import generic
 from django.contrib import messages
 
+from courses.models import Category, Subcategory, Videos, Comments
+
 from .models import Profile, Teachers
 
 
@@ -125,8 +127,10 @@ def teachers_view(request):
 
 def teacher_profiles_view(request, id):
     teacher = get_object_or_404(Teachers.objects.all(), id=id)
+    subcategories = Subcategory.objects.filter(teacher=teacher)
     context = {
-        'teacher': teacher
+        'teacher': teacher,
+        'subcategories': subcategories
     }
     return render(request, 'teachers/teacher_profile.html', context)
 

@@ -52,6 +52,11 @@ class Teachers(models.Model):
         on_delete=models.CASCADE,
         related_name='teacher'
     )
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='user_teachers',
+    )
     teacher_type = models.CharField(
         max_length=200,
         choices=TeacherType.choices,

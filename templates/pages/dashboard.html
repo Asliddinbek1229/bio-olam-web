@@ -11,7 +11,9 @@
     <div class="info">
  
        <div class="user">
-          <img src="{{ user.profile.photo.url }}" alt="">
+         {% if user.profile.photo %}
+         <img src="{{ user.profile.photo.url }}" alt="">
+         {% endif %}
           <h3>{{ user.first_name }} {{ user.last_name }}</h3>
           <p>{{ user.email }}</p>
           <p>{{ user.profile.job }}</p>

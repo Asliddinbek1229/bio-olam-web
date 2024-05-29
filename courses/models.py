@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from users.models import Teachers
 
 # Create your models here.
@@ -36,6 +37,7 @@ class Subcategory(models.Model):
         blank=True,
         null=True
     )
+    created_at = models.DateTimeField(auto_now_add=True)
     student_count = models.IntegerField(default=0)
     course_duration = models.IntegerField(default=0)
     videos_count = models.IntegerField(default=0)
@@ -95,3 +97,23 @@ class Videos(models.Model):
     def __str__(self):
         return f"{self.subcategory.name} - {self.name}"
 
+
+class Comments(models.Model):
+    video = models.ForeignKey(
+        Videos,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f"{self.video.name} - {self.text}"

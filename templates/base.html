@@ -44,14 +44,26 @@
       </div>
 
       <div class="profile">
-         <img src="{% static 'images/pic-1.jpg' %}" class="image" alt="">
-         <h3 class="name">shaikh anas</h3>
-         <p class="role">studen</p>
-         <a href="profile.html" class="btn">view profile</a>
-         <div class="flex-btn">
-            <a href="login.html" class="option-btn">login</a>
-            <a href="register.html" class="option-btn">register</a>
-         </div>
+         {% if request.user.is_authenticated %}
+            {% if user.profile.photo %}
+               <img src="{{ user.profile.photo.url }}" class="image" alt="User">
+            {% else %}
+               <img src="{% static "images/user.png" %}" class="image" alt="User">
+            {% endif %}
+            <h3 class="name">{{ user.first_name }} {{ user.last_name }}</h3>
+            <p class="role">{{ user.profile.job }}</p>
+            <a href="{% url "dashboard_user" %}" class="btn">Profilni ko'rish</a>
+            <div class="flex-btn">
+               <a href="{% url "logout" %}" class="option-btn">Chiqish</a>
+            </div>
+         {% else %}
+            <img src="{% static 'images/pic-1.jpg' %}" class="image" alt="">
+            <h3 class="name">Saytga kirmagansiz</h3>
+            <div class="flex-btn">
+               <a href="{% url "login" %}" class="option-btn">Login</a>
+               <a href="{% url "register_user" %}" class="option-btn">Register</a>
+            </div>
+         {% endif %}
       </div>
 
    </section>

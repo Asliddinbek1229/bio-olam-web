@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import Teachers
 
 # Create your models here.
 class Category(models.Model):
@@ -27,11 +26,12 @@ class Subcategory(models.Model):
         related_name='subcategories'
     )
     teacher = models.ForeignKey(
-        Teachers,
+        'users.Teachers',
         on_delete=models.CASCADE,
         related_name='subcategories'
     )
     name = models.CharField(max_length=100)
+    descriptions = models.TextField()
     image = models.ImageField(
         upload_to="subcategory/",
         blank=True,
@@ -78,7 +78,7 @@ class Videos(models.Model):
     )
     name = models.CharField(max_length=100)
     description = models.TextField()
-    time = models.IntegerField(default=0)
+    time = models.IntegerField(default=0, null=False, blank=False)
     video = models.FileField(upload_to="videos/")
 
     def save(self, *args, **kwargs):
@@ -96,6 +96,23 @@ class Videos(models.Model):
 
     def __str__(self):
         return f"{self.subcategory.name} - {self.name}"
+
+
+
+# class Likes(models.Model):
+#     video = models.ForeignKey(
+#         Videos,
+#         on_delete=models.CASCADE,
+#         related_name='likes'
+#     )
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.SET_NULL,
+#         related_name='likes'
+    # )
+
+
+
 
 
 class Comments(models.Model):

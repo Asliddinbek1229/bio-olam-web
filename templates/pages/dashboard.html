@@ -6,7 +6,7 @@
 
 <section class="user-profile">
 
-    <h1 class="heading">your profile</h1>
+    <h1 class="heading">Sizning profilingiz</h1>
  
     <div class="info">
  
@@ -27,74 +27,10 @@
              <div class="flex">
                 <i class="fas fa-bookmark"></i>
                 <div>
-                   <span>4</span>
-                   <p>saved playlist</p>
+                   <span>{{ saved_playlists_count }}</span>
+                   <p>Saqlangan playlistlar</p>
                 </div>
              </div>
-             <a href="#" class="inli{% extends "base.html" %}
-             {% load static %}
-             {% block title %}<title>Dashboard</title>{% endblock title %}
-             
-             {% block content %}
-             
-             <section class="user-profile">
-             
-                 <h1 class="heading">your profile</h1>
-              
-                 <div class="info">
-              
-                    <div class="user">
-                      {% if user.profile.photo %}
-                      <img src="{{ user.profile.photo.url }}" alt="">
-                      {% endif %}
-                       <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-                       <p>{{ user.email }}</p>
-                       <p>{{ user.profile.job }}</p>
-                       <a href="{% url "edit_user_profile" %}" class="inline-btn">profilni tahrirlash</a>
-                       <a href="{% url "password_change" %}" class="inline-btn" id="btn-signup">Parolni almashtirish</a>
-                    </div>
-                 
-                    <div class="box-container">
-                 
-                       <div class="box">
-                          <div class="flex">
-                             <i class="fas fa-bookmark"></i>
-                             <div>
-                                <span>4</span>
-                                <p>saved playlist</p>
-                             </div>
-                          </div>
-                          <a href="#" class="inline-btn">view playlists</a>
-                       </div>
-                 
-                       <div class="box">
-                          <div class="flex">
-                             <i class="fas fa-heart"></i>
-                             <div>
-                                <span>33</span>
-                                <p>videos liked</p>
-                             </div>
-                          </div>
-                          <a href="#" class="inline-btn">view liked</a>
-                       </div>
-                 
-                       <div class="box">
-                          <div class="flex">
-                             <i class="fas fa-comment"></i>
-                             <div>
-                                <span>12</span>
-                                <p>videos comments</p>
-                             </div>
-                          </div>
-                          <a href="#" class="inline-btn">view comments</a>
-                       </div>
-                 
-                    </div>
-                 </div>
-              
-              </section>
-             
-             {% endblock content %}ne-btn">view playlists</a>
           </div>
     
           <div class="box">
@@ -102,10 +38,9 @@
                 <i class="fas fa-heart"></i>
                 <div>
                    <span>33</span>
-                   <p>videos liked</p>
+                   <p>videolar yoqdi</p>
                 </div>
              </div>
-             <a href="#" class="inline-btn">view liked</a>
           </div>
     
           <div class="box">
@@ -113,14 +48,40 @@
                 <i class="fas fa-comment"></i>
                 <div>
                    <span>12</span>
-                   <p>videos comments</p>
+                   <p>video sharhlar</p>
                 </div>
              </div>
-             <a href="#" class="inline-btn">view comments</a>
           </div>
     
        </div>
     </div>
+
+    <section class="courses">
+      <h1 class="heading">Saqlangan playlistlar</h1>
+      <div class="box-container">
+         {% for course in saved_playlists %}
+         
+         <div class="box">
+            <div class="tutor">
+               <img src="{{ course.teacher.profile.photo.url }}" alt="">
+               <div class="info">
+                  <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
+                  <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>
+               </div>
+            </div>
+            <div class="thumb">
+               <img src="{{ course.image.url }}" alt="">
+               <span>{{ course.videos_count }} ta video</span>
+            </div>
+            <h3 class="title">{{ course.name }}</h3>
+            <a href="{% url "playlists_view" course.id %}" class="inline-btn">Kursni ko'rish</a>
+         </div>
+         {% empty %}
+            <span style="font-size: 20px; color: red;"><i class="fa-solid fa-xmark"></i>  Saqlangan playlistlar yo'q</span>
+         {% endfor %}
+    
+       </div>
+  </section>
  
  </section>
 

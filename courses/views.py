@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
-from .models import Comments, Videos
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Comments, Videos, Subcategory
+from users.models import Profile
 
 def add_comment(request, video_id):
     video = Videos.objects.get(pk=video_id)
@@ -17,3 +18,12 @@ def add_comment(request, video_id):
             'form': form
         }
     return render(request, 'add_comment.html', context)
+
+def save_playlist_view(request, subcategory_id):
+    subcategory = get_object_or_404(Subcategory, id=subcategory_id)
+    profile = request.user.profile
+    if profile.saved_playlists.filter(id=subcategory.id).exists():
+        profile.saved_playlists.remove(subcategory)
+    else:
+        profile.saved_playlists.add(subcategory)
+    return redirect('playlists_view', id=subcategory_id)

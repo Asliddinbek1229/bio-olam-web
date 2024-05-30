@@ -98,7 +98,7 @@
       <a href="{% url "home_page" %}"><i class="fas fa-home"></i><span>Uy</span></a>
       <a href="{% url "about_page" %}"><i class="fas fa-question"></i><span>Biz haqimizda</span></a>
       <a href="{% url "courses_view" %}"><i class="fas fa-graduation-cap"></i><span>Kurslar</span></a>
-      <a href="{% url "teachers_view" %}"><i class="fas fa-chalkboard-user"></i><span>Ustozlar</span></a>
+      <a href="{% url "teachers_view" %}"><i class="fas fa-chalkboard-user"></i><span>O'qituvchilar</span></a>
       <a href="{% url "contact_me" %}"><i class="fas fa-headset"></i><span>Biz bilan aloqa</span></a>
       {% if request.user.is_staff %}
          <a href="{% url "add_teacher" %}">Teacher qo'shish</a>

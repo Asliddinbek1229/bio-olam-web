@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from courses.models import Subcategory
 
 class Profile(models.Model):
     class Jobs(models.TextChoices):
@@ -26,7 +27,10 @@ class Profile(models.Model):
         choices=Jobs.choices,
         default=Jobs.Other
     )
+    saved_playlists = models.ManyToManyField(Subcategory, related_name='saved_by_users', blank=True)
     bio = models.CharField(max_length=200)
+    liked_videos_count = models.PositiveIntegerField(default=0)
+    comments_count = models.PositiveIntegerField(default=0)
 
     
     def __str__(self):

@@ -11,9 +11,19 @@
     <div class="row">
  
        <div class="column">
-          <form action="" method="post" class="save-playlist">
-             <button type="submit"><i class="far fa-bookmark"></i> <span>save playlist</span></button>
-          </form>
+         <form action="" method="post" class="save-playlist">
+            {% csrf_token %}
+            <button type="submit">
+                <i class="far fa-bookmark"></i> 
+                <span>
+                   {% if is_saved %}
+                       <span style="color: green;">Playlistsdan olib tashlash</span>
+                   {% else %}
+                       Playlistga saqlash
+                   {% endif %}
+                </span>
+            </button>
+         </form>
     
           <div class="thumb">
              <img src="{{ subcategory.image.url }}" alt="">
@@ -31,7 +41,7 @@
     
           <div class="details">
              <h3>{{ subcategory.name }}</h3>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum minus reiciendis, error sunt veritatis exercitationem deserunt velit doloribus itaque voluptate.</p>
+             <p>{{ subcategory.descriptions }}</p>
              <a href="{% url "teacher_profile" subcategory.teacher.id %}" class="inline-btn">Profilni ko'rish</a>
           </div>
        </div>

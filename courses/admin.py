@@ -28,12 +28,14 @@ class CategoryAdmin(admin.ModelAdmin):
 class SubcategoryAdmin(admin.ModelAdmin):
     list_display = [
         'category',
-        'name',
         'teacher',
-        'videos_count',
-        'course_duration',
-        'student_count',
+        'name',
+        'descriptions',
+        'image',
         'created_at',
+        'student_count',
+        'course_duration',
+        'videos_count',
     ]
 
 

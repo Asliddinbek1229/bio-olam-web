@@ -29,10 +29,20 @@ def courses_view(request):
 
 def playlists_view(request, id):
     subcategory = get_object_or_404(Subcategory.objects.all(), id=id)
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        if profile.saved_playlists.filter(id=subcategory.id).exists():
+            profile.saved_playlists.remove(subcategory)
+        else:
+            profile.saved_playlists.add(subcategory)
+        return redirect('playlists_view', id=id)
+    
     videos = subcategory.videos_set.all()
     context = {
         'subcategory': subcategory,
-        'videos': videos
+        'videos': videos,
+         'is_saved': profile.saved_playlists.filter(id=subcategory.id).exists()
     }
     return render(request, 'side_bar/playlists.html', context)
 

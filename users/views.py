@@ -40,8 +40,13 @@ def user_login(request):
 
 def dashboard_view(request):
     user = request.user
+    profile = user.profile
+    saved_playlists = profile.saved_playlists.all()
+    saved_playlists_count = user.profile.saved_playlists.count()
     context = {
-        user: user
+        'user': user,
+        'saved_playlists_count': saved_playlists_count,
+        'saved_playlists': saved_playlists
     }
     return render(request, 'pages/dashboard.html', context)
 

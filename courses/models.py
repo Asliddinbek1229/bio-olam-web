@@ -64,9 +64,9 @@ class Subcategory(models.Model):
     def delete(self, *args, **kwargs):
         category = self.category
         teacher = self.teacher
+        super().delete(*args, **kwargs)
         category.update_subcategory_count()
         teacher.update_teacher_stats()
-        super().delete(*args, **kwargs)
 
     def __str__(self):
         return f"{self.category.name} - {self.name}"
@@ -80,6 +80,8 @@ class Videos(models.Model):
     description = models.TextField()
     time = models.IntegerField(default=0, null=False, blank=False)
     video = models.FileField(upload_to="videos/")
+    likes_num = models.IntegerField(default=0)
+    comment_num = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -94,22 +96,33 @@ class Videos(models.Model):
         subcategory.update_videos_count()
         subcategory.update_teacher_stats()
 
+    def increment_likes(self):
+        self.likes_num += 1
+        self.save()
+
+    def decrement_likes(self):
+        self.likes_num -= 1
+        self.save()
+
+    def increment_comments(self):
+        self.comment_num += 1
+        self.save()
+
     def __str__(self):
         return f"{self.subcategory.name} - {self.name}"
 
 
 
-# class Likes(models.Model):
-#     video = models.ForeignKey(
-#         Videos,
-#         on_delete=models.CASCADE,
-#         related_name='likes'
-#     )
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.SET_NULL,
-#         related_name='likes'
-    # )
+class Likes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    video = models.ForeignKey(Videos, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['user', 'video']
+
+    def __str__(self):
+        return f"{self.user.username} likes {self.video.name}"
 
 
 

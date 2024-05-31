@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
-from courses.models import Category, Subcategory, Videos
+from courses.models import Category, Subcategory, Videos, Likes
 from .forms import CommentForm
 from courses.models import Comments
+
+from django.http import JsonResponse
 
 # Create your views here.
 def home_page(request):
@@ -46,6 +48,28 @@ def playlists_view(request, id):
     }
     return render(request, 'side_bar/playlists.html', context)
 
+
+def like_video(request, id):
+    video = get_object_or_404(Videos, id=id)
+    user = request.user
+
+    # Tekshiramiz, foydalanuvchi ushbu video uchun oldinroq "like" qo'shganmi yoki yo'qmi
+    already_liked = Likes.objects.filter(user=user, video=video).exists()
+
+    if already_liked:
+        # Agar foydalanuvchi ushbu video uchun oldinroq "like" qo'shgan bo'lsa, "unlike" bajaramiz
+        Likes.objects.filter(user=user, video=video).delete()
+        video.likes_num -= 1
+        video.save()
+        return JsonResponse({'action': 'unliked'})
+    else:
+        # Aks holda, foydalanuvchi uchun "like" qo'shamiz
+        like = Likes(user=user, video=video)
+        like.save()
+        video.likes_num += 1
+        video.save()
+        return JsonResponse({'action': 'liked'})
+
 def watch_video_view(request, id):
     video = get_object_or_404(Videos.objects.all(), id=id)
     comments = Comments.objects.filter(video=video).order_by('created_at')[:5]
@@ -57,6 +81,7 @@ def watch_video_view(request, id):
             new_comment.video = video
             new_comment.user = request.user
             new_comment.save()
+            video.increment_comments()
             return redirect('watch_video', id=id)
     else:
         form = CommentForm()

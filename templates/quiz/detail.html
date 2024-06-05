@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+{% endblock head %}
+
+{% block scripts %}
+<script src="{% static 'js/quiz.js' %}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+{% endblock scripts %}
+
+{% block title %}<title>Viktorina sahifasi</title>{% endblock title %}
+
+{% block content %}
+<div class="container-quiz1">
+  <div class="container-quiz">
+    <h1>Quiz: {{quiz.name}} ({{ quiz.topic.name }})</h1>
+  </div>
+
+  <div class="row">
+      <div class="col">
+          <div class="text-secondary my-auto" id="score-box">
+              <p>Majburiy ball: {{quiz.required_score}} %</p>
+          </div>
+      </div>
+      <div class="col text-end" id="timer-box">
+      </div>
+  </div>
+
+  <div class="py-3">
+      <a href="#" class="btn btn-danger">
+          Go back
+      </a>
+  </div>
+
+  <form class="mt-3" id="quiz-form">
+      {% csrf_token %}
+      <div id="quiz-box"></div>
+      <div class="text-center py-3">
+          <button type="submit" class="mt-4 btn btn-primary btn-lg">Send</button>
+      </div>
+  </form>
+
+  <div id="result-box"></div>
+</div>
+{% endblock content %}

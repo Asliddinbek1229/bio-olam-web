@@ -2,7 +2,93 @@
 {% load static %}
 {% block title %}<title>Playlist</title>{% endblock title %}
 
+
 {% block content %}
+<style>
+/* Modal styling */
+.modal {
+   display: none;
+   position: fixed;
+   z-index: 1;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+   background-color: rgb(0, 0, 0);
+   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+   background-color: #fefefe;
+   margin: 15% auto;
+   padding: 20px;
+   border: 1px solid #888;
+   width: 80%;
+   max-width: 500px;
+   border-radius: 10px;
+}
+
+.close {
+   color: #aaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+   color: black;
+   text-decoration: none;
+   cursor: pointer;
+}
+
+.modal-body p {
+   font-size: 18px; /* Bu yerda font-size ni kattalashtiryapmiz */
+}
+
+.quiz-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   padding: 20px;
+}
+
+.quiz-box {
+   background-color: #fff;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   width: 200px;
+   margin: 10px;
+   padding: 20px;
+   transition: transform 0.3s, box-shadow 0.3s;
+   text-decoration: none;
+   color: #333;
+   cursor: pointer;
+}
+
+.quiz-box:hover {
+   transform: translateY(-10px);
+   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-box i {
+   font-size: 36px;
+   margin-bottom: 10px;
+   color: #007BFF;
+}
+
+.quiz-box h3 {
+   font-size: 18px;
+   margin: 0;
+}
+</style>
 
 <section class="playlist-details">
 
@@ -62,9 +148,91 @@
          <h3>{{ video.name }}</h3>
       </a>
       {% endfor %}
- 
+      
     </div>
+     <!-- Modal HTML -->
+     <div id="quizStartModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h5 style="font-size: 28px;">Start Quiz</h5>
+          <div class="modal-body" id="modal-body-confirm">
+              <!-- Modal content will be dynamically loaded here -->
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-danger" id="cancel-button">Cancel</button>
+              <button class="btn btn-success" id="start-button">Start</button>
+          </div>
+      </div>
+  </div>
+
+  <div class="quiz-container">
+      {% for quiz in quizzes %}
+      <div class="quiz-box" data-pk="{{quiz.pk}}" data-date="{{quiz.date}}" data-name="{{quiz.name}}"
+          data-description="{{quiz.description}}" data-topic="{{quiz.topic.name}}"
+          data-questions="{{quiz.number_of_questions}}" data-difficulty="{{quiz.difficulty}}"
+          data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
+          <i class="fas fa-play"></i>
+          <h3>{{ quiz.name }}</h3>
+          {% if quiz.results_quiz.exists %}
+            {% with last_result=quiz.results_quiz.last %}
+               <p style="font-size: 10px;">Sizning oxirgi natijangiz: {{ last_result.score }}</p>
+            {% endwith %}
+         {% else %}
+            <p>Sizning hali natijangiz yo'q</p>
+         {% endif %}
+      </div>
+      {% endfor %}
  
  </section>
+
+ <script>
+   // Get the modal
+   var modal = document.getElementById("quizStartModal");
+   
+   // Get the <span> element that closes the modal
+   var span = document.getElementsByClassName("close")[0];
+   const startButton = document.getElementById("start-button");
+   
+   // When the user clicks on the button, open the modal
+   document.querySelectorAll('.quiz-box').forEach(item => {
+       item.addEventListener('click', event => {
+           document.getElementById("modal-body-confirm").innerHTML = `
+               <p>Nomi: ${item.getAttribute('data-name')}</p>
+               <p>Ma'lumot: ${item.getAttribute('data-description')}</p>
+               <p>Kurs: ${item.getAttribute('data-topic')}</p>
+               <p>Savollar: ${item.getAttribute('data-questions')}</p>
+               <p>Darajasi: ${item.getAttribute('data-difficulty')}</p>
+               <p>Vaqti: ${item.getAttribute('data-time')} daqiqa</p>
+               <p>O'tish foizi: ${item.getAttribute('data-pass')}</p>
+           `;
+           modal.style.display = "block";
+           quizId = item.getAttribute('data-pk');
+           console.log(quizId);
+       });
+   });
+   
+   // When the user clicks on <span> (x), close the modal
+   span.onclick = function() {
+       modal.style.display = "none";
+   }
+   
+   // When the user clicks on "Cancel" button, close the modal
+   document.getElementById("cancel-button").onclick = function() {
+       modal.style.display = "none";
+   }
+   
+   // When the user clicks anywhere outside of the modal, close it
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+
+   startButton.addEventListener('click', function () {
+         // Quiz detail sahifasiga o'tish
+         const url = `/courses/playlists/quiz/${quizId}/`; // URL yaratish
+         window.location.href = url; // Sahifani o'zgartirish
+   });
+   </script>
 
 {% endblock content %}

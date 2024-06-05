@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from courses.models import Category, Subcategory, Videos, Likes, Comments
 from .forms import CommentForm
 from courses.models import Comments
+from quiz_app.models import Quiz
+from results.models import Result
 
 from django.http import JsonResponse
 
@@ -38,6 +40,7 @@ def courses_view(request):
 
 def playlists_view(request, id):
     subcategory = get_object_or_404(Subcategory.objects.all(), id=id)
+    quizzes = Quiz.objects.filter(topic=subcategory)
     profile = request.user.profile
 
     if request.method == 'POST':
@@ -51,7 +54,8 @@ def playlists_view(request, id):
     context = {
         'subcategory': subcategory,
         'videos': videos,
-         'is_saved': profile.saved_playlists.filter(id=subcategory.id).exists()
+         'is_saved': profile.saved_playlists.filter(id=subcategory.id).exists(),
+         'quizzes': quizzes,
     }
     return render(request, 'side_bar/playlists.html', context)
 

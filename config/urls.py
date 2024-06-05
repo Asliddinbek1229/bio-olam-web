@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include("pages.urls")),
     path('accounts/', include("users.urls")),
     path('courses/', include("courses.urls")),
+    # path('quiz-app/', include("quiz_app.urls")),
 ]
 
 urlpatterns += i18n_patterns(

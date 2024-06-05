@@ -14,8 +14,8 @@
        </div>
        <h3 class="title">{{ video.name }}</h3>
        <div class="info">
-          <p class="date"><i class="fas fa-calendar"></i><span>22-10-2022</span></p>
-          <p class="date"><i class="fas fa-heart"></i><span>{{ video.likes_num }} likes</span></p>
+          <p class="date"><i class="fas fa-calendar"></i><span>{{ video.created_at|date:"d-m-Y / H:i" }}</span></p>
+          <p class="date"><i class="fas fa-heart"></i><span>{{ number_of_likes }} likes</span></p>
        </div>
        <div class="tutor">
           <img src="{{ video.subcategory.teacher.profile.photo.url }}" alt="">
@@ -24,14 +24,17 @@
              <span>Mutahasisligi: {{ video.subcategory.teacher.teacher_type }}</span>
           </div>
        </div>
-       <form action="{% url 'like_video' video.id %}" method="post" class="flex" id="like-form">
-         {% csrf_token %}
-         <a href="{% url 'playlists_view' video.subcategory.id %}" class="inline-btn">Playlistga qaytish</a>
-         <button type="submit" id="like-button" class="like-button">
-             <i class="far fa-heart" id="heart-icon"></i>
-             <span>like</span>
-         </button>
-     </form>
+       {% if video_is_liked %}
+            <form action="{% url 'like_video' video.id %}" method="get" class="flex" id="like-form">
+                <a href="{% url 'playlists_view' video.subcategory.id %}" class="inline-btn">Playlistga qaytish</a>
+                <button type="submit" name="like_video_id" value="{{ video.id }}"><i class="fa-solid fa-heart"></i>Unlike</button>
+            </form>
+        {% else %}
+            <form action="{% url 'like_video' video.id %}" method="get" class="flex" id="like-form">
+                <a href="{% url 'playlists_view' video.subcategory.id %}" class="inline-btn">Playlistga qaytish</a>
+                <button type="submit" name="like_video_id" value="{{ video.id }}"><i class="far fa-heart" id="heart-icon"></i>Like</button>
+            </form>
+        {% endif %}
       
      
      
@@ -78,53 +81,5 @@
     </div>
  
  </section>
-
- <script>
-   
-   document.addEventListener('DOMContentLoaded', function() {
-      const likeForm = document.getElementById('like-form');
-      const likeButton = document.getElementById('like-button');
-      const heartIcon = document.getElementById('heart-icon');
-  
-      likeButton.addEventListener('click', function(event) {
-          event.preventDefault();
-          const url = likeForm.action;
-          const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-  
-          const isLiked = heartIcon.classList.contains('like-active');
-  
-          fetch(url, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': csrftoken
-              },
-              body: JSON.stringify({ like: !isLiked })
-          })
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('Network response was not ok ' + response.statusText);
-              }
-              return response.json();
-          })
-          .then(data => {
-              if (data.action === 'liked') {
-                  heartIcon.classList.add('like-active');
-                  likeButton.classList.remove('unliked-button');
-              } else if (data.action === 'unliked') {
-                  heartIcon.classList.remove('like-active');
-                  likeButton.classList.add('unliked-button');
-              }
-              if (data.likes_num !== undefined) {
-                  document.getElementById('like-count').textContent = data.likes_num + ' likes';
-              }
-          })
-          .catch(error => console.error('Error:', error));
-      });
-  });    
-
-</script>
-
-
 
 {% endblock content %}

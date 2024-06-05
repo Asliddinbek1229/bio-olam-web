@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 class Category(models.Model):
@@ -80,8 +81,9 @@ class Videos(models.Model):
     description = models.TextField()
     time = models.IntegerField(default=0, null=False, blank=False)
     video = models.FileField(upload_to="videos/")
-    likes_num = models.IntegerField(default=0)
+    likes_num = models.ManyToManyField(User, related_name="videos_like", blank=True)
     comment_num = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -96,13 +98,8 @@ class Videos(models.Model):
         subcategory.update_videos_count()
         subcategory.update_teacher_stats()
 
-    def increment_likes(self):
-        self.likes_num += 1
-        self.save()
-
-    def decrement_likes(self):
-        self.likes_num -= 1
-        self.save()
+    def number_of_likes(self):
+        return self.likes_num.count()
 
     def increment_comments(self):
         self.comment_num += 1
@@ -123,9 +120,6 @@ class Likes(models.Model):
 
     def __str__(self):
         return f"{self.user.username} likes {self.video.name}"
-
-
-
 
 
 class Comments(models.Model):

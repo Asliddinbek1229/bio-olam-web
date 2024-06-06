@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock head %}
+
+{% block title %}<title>Qidiruv natijalari</title>{% endblock title %}
+
+{% block content %}
+
+{% for teacher in search_results_teacher %}
+
+<div class="search-result new-job">
+    <div class="badge" style="font-size: 15px;">natija</div>
+    <div class="icon">
+      <img src="{{ teacher.profile.photo.url }}" width="100" />
+    </div>
+    <div class="content">
+      <h2><a href="{% url "teacher_profile" teacher.id %}" style="font-size: 28px;">{{ teacher.user.first_name }} {{ teacher.user.last_name }}</a></h2>
+      <p>
+        <span class="company" style="font-size: 15px;"><a>Kasbi: </a></span>
+        {{ teacher.profile.job }}
+        <a>
+          <span class="stars"><span class="stars-inner" style="width:74px"></span></span>
+          <span class="reviews">{{ teacher.teacher_type }}</span>
+        </a>
+      </p>
+      <div class="actions">
+        <span class="date" style="font-size: 15px;">BioOlam tomonidan tayinlangan</span>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+{% if not search_results_teacher %}
+    <p>Hech narsa topilmadi.</p>
+{% endif %}
+
+{% endblock content %}

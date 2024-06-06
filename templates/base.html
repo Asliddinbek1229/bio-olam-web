@@ -5,7 +5,8 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   {% block title %}{% endblock title %}
+   {% block title %}
+   {% endblock title %}
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
@@ -29,8 +30,8 @@
 
       <a href="{% url "home_page" %}" class="logo">BioOlam.</a>
 
-      <form action="search.html" method="post" class="search-form">
-         <input type="text" name="search_box" required placeholder="kurslarni qidirish..." maxlength="100">
+      <form action="{% url "search_results" %}" method="get" class="search-form">
+         <input type="text" name="search" required placeholder="kurslarni qidirish..." maxlength="100">
          <button type="submit" class="fas fa-search"></button>
       </form>
 

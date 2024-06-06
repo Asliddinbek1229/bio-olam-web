@@ -2,7 +2,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from .models import Profile, Teachers
+from .models import Profile, Teachers, Review
 
 from .validators import validate_not_too_similar, validate_not_common_password, validate_not_entirely_numeric
 
@@ -90,3 +90,9 @@ class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teachers
         fields = ['user', 'teacher_type', 'bio',]
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['review_text', 'rating']

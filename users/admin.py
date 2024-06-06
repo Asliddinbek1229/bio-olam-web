@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Teachers
+from .models import Profile, Teachers, Review
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -19,4 +19,13 @@ class TeachersAdmin(admin.ModelAdmin):
         'bio',
         'likes_num',
         'student_num',
+    ]
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = [
+        'user',
+        'review_text',
+        'rating',
+        'created_at',
     ]

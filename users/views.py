@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout, authenticate, login
-from .forms import LoginForm, CustomPasswordChangeForm, UserRegisterForm, UserEditForm, ProfileEditForm, TeacherForm
+from .forms import LoginForm, CustomPasswordChangeForm, UserRegisterForm, UserEditForm, ProfileEditForm, TeacherForm, ReviewForm
 from django.views import generic
 from django.contrib import messages
+from django.views.generic import ListView
+from django.db.models import Q
 
-from courses.models import Category, Subcategory, Videos, Comments
+from courses.models import Subcategory
 
 from .models import Profile, Teachers
 
@@ -139,3 +141,35 @@ def teacher_profiles_view(request, id):
     }
     return render(request, 'teachers/teacher_profile.html', context)
 
+
+class SearchTeacherProfile(ListView):
+    model = Teachers
+    template_name = 'teachers/search_teachers.html'
+    context_object_name = 'search_results_teacher'
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            return Teachers.objects.filter(
+                Q(user__username__icontains=query) | 
+                Q(teacher_type__icontains=query)
+            )
+        return Teachers.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('search')
+        return context
+    
+
+def add_review(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.save()
+            return redirect('reviews_view')
+    else:
+        form = ReviewForm()
+    return render(request, 'add_review.html', {'form': form})

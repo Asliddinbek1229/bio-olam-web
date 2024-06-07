@@ -9,8 +9,8 @@
 
     <h1 class="heading">Tajribali o'qituvchilar</h1>
  
-    <form action="" method="post" class="search-tutor">
-       <input type="text" name="search_box" placeholder="o'qituvchilarni qidiring..." required maxlength="100">
+    <form action="{% url "teacher_search" %}" method="get" class="search-tutor">
+       <input type="text" name="search" placeholder="o'qituvchilarni qidiring..." required maxlength="100" value="{{ query }}">
        <button type="submit" class="fas fa-search" name="search_tutor"></button>
     </form>
  
@@ -19,7 +19,7 @@
        <div class="box offer">
           <h3>Siz ham o'qituvchi bo'ling</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, itaque ipsam fuga ex et aliquam.</p>
-          <a href="register.html" class="inline-btn">boshlash</a>
+          <a href="{% url "tutor_contact" %}" class="inline-btn">boshlash</a>
        </div>
        
        {% for teacher in teachers %}

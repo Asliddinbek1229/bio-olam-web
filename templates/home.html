@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}<title>Asosiy sahifa</title>{% endblock title %}
+{% block title %}<title>BioOlam | Asosiy sahifa</title>{% endblock title %}
 
 {% block content %}
     <section class="home-grid">
 
-    <h1 class="heading">quick options</h1>
+    <h1 class="heading">Tezkor variantlar</h1>
  
     <div class="box-container">
  
@@ -20,7 +20,7 @@
           <h3 class="title">Mashxur bo'limlar</h3>
           <div class="flex">
             {% for category in categories  %}
-            <a href="#"><i class="fa-solid fa-layer-group"></i><span>{{ category.name }}</span></a>
+            <a href="{% url "category_detail" category.id %}"><i class="fa-solid fa-layer-group"></i><span>{{ category.name }}</span></a>
             {% endfor %}
           </div>
        </div>
@@ -29,15 +29,15 @@
           <h3 class="title">Mashxur kurslar</h3>
           <div class="flex">
             {% for subcategory in subcategories %}
-            <a href="#"><i class="fab fa-html5"></i><span>{{ subcategory.name }}</span></a>
+            <a href="{% url "playlists_view" subcategory.id %}"><i class="fab fa-html5"></i><span>{{ subcategory.name }}</span></a>
             {% endfor %}
           </div>
        </div>
  
        <div class="box">
-          <h3 class="title">become a tutor</h3>
+          <h3 class="title">O'qituvchi bo'ling</h3>
           <p class="tutor">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, nam?</p>
-          <a href="teachers.html" class="inline-btn">get started</a>
+          <a href="{% url "teachers_view" %}" class="inline-btn"><i class="fa-solid fa-user-tie"></i>  Boshlang</a>
        </div>
  
     </div>

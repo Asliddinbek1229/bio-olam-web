@@ -173,13 +173,6 @@
           data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
           <i class="fas fa-play"></i>
           <h3>{{ quiz.name }}</h3>
-          {% if quiz.results_quiz.exists %}
-            {% with last_result=quiz.results_quiz.last %}
-               <p style="font-size: 10px;">Sizning oxirgi natijangiz: {{ last_result.score }}</p>
-            {% endwith %}
-         {% else %}
-            <p>Sizning hali natijangiz yo'q</p>
-         {% endif %}
       </div>
       {% endfor %}
  

@@ -30,8 +30,8 @@
   </div>
 
   <div class="py-3">
-      <a href="#" class="btn btn-danger">
-          Go back
+      <a href="{% url "playlists_view" quiz.topic.id %}" class="btn btn-danger">
+          Ortga qaytish
       </a>
   </div>
 
@@ -39,7 +39,7 @@
       {% csrf_token %}
       <div id="quiz-box"></div>
       <div class="text-center py-3">
-          <button type="submit" class="mt-4 btn btn-primary btn-lg">Send</button>
+          <button type="submit" class="mt-4 btn btn-primary btn-lg">Yakunlash</button>
       </div>
   </form>
 

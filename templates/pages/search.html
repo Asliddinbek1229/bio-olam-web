@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock head %}
+
+{% block title %}<title>Qidiruv natijalari</title>{% endblock title %}
+
+{% block content %}
+
+{% for subcategory in search_results %}
+
+<div class="search-result new-job">
+    <div class="badge" style="font-size: 15px;">natija</div>
+    <div class="icon">
+      <img src="{{ subcategory.image.url }}" width="100" />
+    </div>
+    <div class="content">
+      <h2><a href="{% url "playlists_view" subcategory.id %}" style="font-size: 28px;">{{ subcategory.name }}</a></h2>
+      <p>
+        <span class="company" style="font-size: 15px;"><a>{{ subcategory.videos_count }}</a></span>
+        - ta video
+        <a>
+          <span class="stars"><span class="stars-inner" style="width:74px"></span></span>
+          <span class="reviews">Yangi</span>
+        </a>
+      </p>
+      <div>
+        <p style="font-size: 15px;">{{ subcategory.descriptions }}</p>
+      </div>
+      <div class="actions">
+        <span class="date" style="font-size: 15px;">{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% endblock content %}

@@ -26,7 +26,7 @@
        <div class="box">
           <i class="fas fa-graduation-cap"></i>
           <div>
-             <h3>+10k</h3>
+             <h3>+{{ subcategory_count }}</h3>
              <p>Online kurslar</p>
           </div>
        </div>
@@ -34,7 +34,7 @@
        <div class="box">
           <i class="fas fa-user-graduate"></i>
           <div>
-             <h3>+40k</h3>
+             <h3>+{{ users_count }}</h3>
              <p>Faol talabalar</p>
           </div>
        </div>
@@ -42,7 +42,7 @@
        <div class="box">
           <i class="fas fa-chalkboard-user"></i>
           <div>
-             <h3>+2k</h3>
+             <h3>+{{ teachers_count }}</h3>
              <p>Expert o'qituvchilar</p>
           </div>
        </div>
@@ -65,109 +65,36 @@
  
     <div class="box-container">
  
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-2.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
- 
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-3.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
- 
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-4.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
- 
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-5.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
- 
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-6.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
- 
-       <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-          <div class="student">
-             <img src="{% static 'images/pic-7.jpg' %}" alt="">
-             <div>
-                <h3>john deo</h3>
-                <div class="stars">
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star"></i>
-                   <i class="fas fa-star-half-alt"></i>
-                </div>
-             </div>
-          </div>
-       </div>
+      {% for review in reviews %}
+      
+      <div class="box">
+         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
+         <div class="{{ review.user.profile.job }}">
+            <img src="{{ review.user.profile.photo.url }}" style="width: 10px; height: 10px;" alt="">
+            <div>
+               <h3>{{ review.user.first_name }} {{ review.user.last_name }}</h3>
+               <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      {% endfor %}
  
     </div>
+    <section class="add-review">
+      <h1>Fikr qo'shish</h1>
+      <form method="POST">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit">Yuborish</button>
+      </form>
+   </section>
  
  </section>
 

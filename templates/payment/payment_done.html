@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}<title>Xarid qilish</title>{% endblock title %}
+
+{% block content %}
+
+<section class="playlist-details">
+
+    <h1 class="heading">{{ subcategory.name }}</h1>
+ 
+    <div class="row">
+ 
+       <div class="column">
+         {% comment %} <form action="" method="post" class="save-playlist">
+            {% csrf_token %}
+            <button type="submit">
+                <i class="far fa-bookmark"></i> 
+                <span>
+                   {% if is_saved %}
+                       <span style="color: green;">Playlistsdan olib tashlash</span>
+                   {% else %}
+                       Playlistga saqlash
+                   {% endif %}
+                </span>
+            </button>
+         </form> {% endcomment %}
+    
+          <div class="thumb">
+             <img src="{{ subcategory.image.url }}" alt="">
+             <span>{{ subcategory.videos_count }} ta video dars</span>
+          </div>
+       </div>
+       <div class="column">
+          <div class="tutor">
+             <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+             <div>
+                <h3>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h3>
+                <span>{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
+             </div>
+          </div>
+    
+          <div class="details">
+             <h3>{{ subcategory.name }}</h3>
+             <p>{{ subcategory.descriptions }}</p>
+             <h3><b>Narxi:</b> 100 000 so'm</h3>
+          </div>
+       </div>
+    <a href="{% url "purchase_playlists" subcategory.id%}" class="btn">Sotib olish</a>
+    </div>
+ 
+ </section>
+
+{% endblock content %}

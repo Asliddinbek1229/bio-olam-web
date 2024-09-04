@@ -66,24 +66,23 @@
     <div class="box-container">
  
       {% for review in reviews %}
-      
-      <div class="box">
-         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, suscipit a. Quibusdam, dignissimos consectetur. Sed ullam iusto eveniet qui aut quibusdam vero voluptate libero facilis fuga. Eligendi eaque molestiae modi?</p>
-         <div class="{{ review.user.profile.job }}">
-            <img src="{{ review.user.profile.photo.url }}" style="width: 10px; height: 10px;" alt="">
-            <div>
-               <h3>{{ review.user.first_name }} {{ review.user.last_name }}</h3>
-               <div class="stars">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star-half-alt"></i>
-               </div>
+         <div class="box">
+            <p>{{ review.review_text }}</p>
+            <div class="{{ review.user.profile.job }}">
+                  <div>
+                     <h3>{{ review.user.first_name }} {{ review.user.last_name }}</h3>
+                     <div class="stars">
+                        {% for i in star_range %}
+                              {% if i <= review.rating %}
+                                 <i class="fas fa-star"></i>
+                              {% else %}
+                                 <i class="fas fa-star-o"></i>
+                              {% endif %}
+                        {% endfor %}
+                     </div>
+                  </div>
             </div>
          </div>
-      </div>
-      
       {% endfor %}
  
     </div>

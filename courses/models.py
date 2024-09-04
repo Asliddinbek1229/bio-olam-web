@@ -86,6 +86,7 @@ class Videos(models.Model):
     likes_num = models.ManyToManyField(User, related_name="videos_like", blank=True)
     comment_num = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now)
+    cover_image = models.ImageField(upload_to="videos/covers/", default="static/images/post-1-1.png")
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

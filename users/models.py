@@ -80,7 +80,9 @@ class Teachers(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     review_text = models.TextField()
-    rating = models.PositiveSmallIntegerField()
+    rating = models.PositiveSmallIntegerField(
+        help_text="0 dan 5 gacha baho bering"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

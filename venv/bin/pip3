@@ -1,4 +1,6 @@
-#!/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bio-olam-web/venv/bin/python3
+#!/bin/sh
+'''exec' "/home/asliddin/Desktop/Bio Olam/bio-olam-web/venv/bin/python3" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

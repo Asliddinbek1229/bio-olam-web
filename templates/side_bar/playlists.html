@@ -146,7 +146,7 @@
       {% for video in videos %}
       <a class="box" href="{% url "watch_video" video.id %}">
          <i class="fas fa-play"></i>
-         <img src="{% static 'images/post-1-1.png' %}" alt="">
+         <img src="{{ video.cover_image.url }}" alt="">
          <h3>{{ video.name }}</h3>
       </a>
       {% endfor %}

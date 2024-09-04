@@ -42,6 +42,8 @@ class Subcategory(models.Model):
     student_count = models.IntegerField(default=0)
     course_duration = models.IntegerField(default=0)
     videos_count = models.IntegerField(default=0)
+    is_payment = models.BooleanField(default=False)
+    price = models.BigIntegerField(default=0)
 
     def update_course_duration(self):
         total_duration = sum(video.time for video in self.videos_set.all())

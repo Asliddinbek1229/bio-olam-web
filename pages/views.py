@@ -34,10 +34,11 @@ def home_page(request):
     return render(request, 'home.html', context)
 
 def about_page(request):
-    subcategory_count = Subcategory.objects.count
-    users_count = User.objects.count
-    teachers_count = Teachers.objects.count
+    subcategory_count = Subcategory.objects.count()
+    users_count = User.objects.count()
+    teachers_count = Teachers.objects.count()
     reviews = Review.objects.all().order_by('-created_at')[:6]
+    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -48,12 +49,16 @@ def about_page(request):
     else:
         form = ReviewForm()
     
+    # 5-star rating uchun ro'yxat hosil qilamiz
+    star_range = range(1, 6)
+
     context = {
-       'subcategory_count': subcategory_count,
+        'subcategory_count': subcategory_count,
         'users_count': users_count,
         'teachers_count': teachers_count,
         'reviews': reviews,
         'form': form,
+        'star_range': star_range,  # Bu ro'yxatni templatega uzatamiz
     }
     return render(request, 'side_bar/about.html', context)
 

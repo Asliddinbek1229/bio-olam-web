@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/media/asliddin/Tegilmasin!/Projects/Bio-Olam/bio-olam-web/venv"
+set -gx VIRTUAL_ENV "/home/asliddin/Desktop/Bio Olam/bio-olam-web/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

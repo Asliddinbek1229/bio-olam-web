@@ -43,6 +43,7 @@ class Subcategory(models.Model):
     course_duration = models.IntegerField(default=0)
     videos_count = models.IntegerField(default=0)
     is_payment = models.BooleanField(default=False)
+    old_price = models.IntegerField(default=0)
     price = models.BigIntegerField(default=0)
 
     def update_course_duration(self):

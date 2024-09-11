@@ -67,8 +67,8 @@
             <span>{{ subcategory.videos_count }} ta video dars</span>
          </div>
          <h3 class="title">{{ subcategory.name }}</h3>
-         <p><del style="text-decoration: line-through; font-size: 12px; color: red;">120 000 so'm</del></p>
-         <p style="font-size: 16px; color: green;"><b>Narxi 100 000 so'm</b></p>
+         <p><del style="text-decoration: line-through; font-size: 12px; color: red;">{{ subcategory.old_price }} so'm</del></p>
+         <p style="font-size: 16px; color: green;"><b>Narxi {{ subcategory.price }} so'm</b></p>
          <a href="{% url "playlists_view" subcategory.id %}" class="inline-btn">Playlistni ko'rish</a>
       </div>
        

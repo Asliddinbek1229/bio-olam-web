@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Payment{% endblock title %}
+
+{% block content %}
+
+<h3>{{ subcategory.name }}</h3>
+<h1>Xarid qilish</h1>
+<button><a href="{% url "playlists_pay" subcategory.id %}">Xarid qilish</a></button>
+
+{% endblock content %}

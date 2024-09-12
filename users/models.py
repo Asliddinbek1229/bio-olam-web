@@ -31,10 +31,32 @@ class Profile(models.Model):
     bio = models.CharField(max_length=200)
     liked_videos_count = models.PositiveIntegerField(default=0)
     comments_count = models.PositiveIntegerField(default=0)
+    balance = models.PositiveIntegerField(default=0)
 
     
     def __str__(self):
         return f"{self.user.username} profili"
+    
+
+class PurchasedPlaylist(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='purchased_playlists'
+    )
+    subcategory = models.ForeignKey(
+        Subcategory,
+        on_delete=models.CASCADE,
+        related_name='purchased_by_users'
+    )
+    purchased_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'subcategory')
+
+    def __str__(self):
+        return f"{self.user.username} bought {self.subcategory.name}"
+
     
 class Teachers(models.Model):
     class TeacherType(models.TextChoices):

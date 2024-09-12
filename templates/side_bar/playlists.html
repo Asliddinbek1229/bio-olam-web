@@ -128,9 +128,17 @@
           <div class="details">
              <h3>{{ subcategory.name }}</h3>
              <p>{{ subcategory.descriptions }}</p>
-             <h3>Narxi: 100 000 so'm</h3>
-             <a href="{% url "teacher_profile" subcategory.teacher.id %}" class="inline-btn">Profilni ko'rish</a>
-             <a href="{% url "teacher_profile" subcategory.teacher.id %}" class="inline-btn">Xarid qilish</a>
+             {% if not is_purchased %}
+               <h3><del style="text-decoration: line-through; font-size: 15px; color: red;">120 000 so'm</del></h3>
+               <h3>Narxi: 100 000 so'm</h3>
+             {% endif %}
+
+             <a href="{% url "teacher_profile" subcategory.teacher.id %}" class="inline-btn">O'qituvchi Profilni ko'rish</a>
+             {% if is_purchased %}
+               <h3 style="margin-top: 10px;"><i class="fa-solid fa-ranking-star"></i> Siz bu kursni sotib oldingiz</h3>
+             {% else %}
+             <a href="{% url "playlist_pay" subcategory.id %}" class="inline-btn">Xarid qilish</a>
+             {% endif %}
           </div>
        </div>
     </div>
@@ -144,11 +152,21 @@
     <div class="box-container">
       
       {% for video in videos %}
-      <a class="box" href="{% url "watch_video" video.id %}">
-         <i class="fas fa-play"></i>
-         <img src="{{ video.cover_image.url }}" alt="">
-         <h3>{{ video.name }}</h3>
-      </a>
+         {% if is_purchased %}
+            <a class="box" href="{% url "watch_video" video.id %}">
+               <i class="fas fa-play"></i>
+               <img src="{{ video.cover_image.url }}" alt="">
+               <h3>{{ video.name }}</h3>
+            </a>
+         {% else %}
+            <div class="box">
+               <i class="fas fa-lock"></i>
+               <img src="{{ video.cover_image.url }}" alt="">
+               <h3>{{ video.name }}</h3>
+               <p>Videoni tomosha qilish uchun kursni xarid qilishingiz kerak</p>
+               <a href="{% url "playlist_pay" subcategory.id %}" class="btn btn-success">Xarid qilish</a>
+            </div>
+         {% endif %}
       {% endfor %}
       
     </div>

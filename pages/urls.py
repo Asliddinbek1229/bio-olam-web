@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import home_page, about_page, courses_view, contact_me_view, playlists_view, watch_video_view, like_video, category_detail_view, \
-tutor_contact_view, SearchResultsView
+tutor_contact_view, SearchResultsView, playlist_pay, playlists_done
 from quiz_app.views import quiz_detail_view, quiz_detail_data_view, save_quiz_view
 
 urlpatterns = [
@@ -11,6 +11,8 @@ urlpatterns = [
     path('tutor-contact/', tutor_contact_view, name='tutor_contact'),
     path('category-detail/<int:id>/', category_detail_view, name='category_detail'),
     path('courses/playlists/<int:id>/', playlists_view, name='playlists_view'),
+    path('courses/playlists/<int:id>/pay/', playlists_done, name='playlist_pay'),
+    path('courses/playlists/<int:id>/pay/done', playlist_pay, name='playlists_pay'),
     path('courses/playlists/video/<int:id>/', watch_video_view, name='watch_video'),
     path('courses/playlists/quiz/<int:id>/', quiz_detail_view, name='quiz_detail_view'),
     path('courses/playlists/quiz/<int:id>/data', quiz_detail_data_view, name='quiz_data_view'),

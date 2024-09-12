@@ -37,3 +37,4 @@ class PurchasedPlaylistAdmin(admin.ModelAdmin):
         'subcategory',
         'purchased_at',
     ]
+    

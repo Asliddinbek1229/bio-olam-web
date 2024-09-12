@@ -129,8 +129,8 @@
              <h3>{{ subcategory.name }}</h3>
              <p>{{ subcategory.descriptions }}</p>
              {% if not is_purchased %}
-               <h3><del style="text-decoration: line-through; font-size: 15px; color: red;">120 000 so'm</del></h3>
-               <h3>Narxi: 100 000 so'm</h3>
+               <h3><del style="text-decoration: line-through; font-size: 15px; color: red;">{{ subcategory.old_price }} so'm</del></h3>
+               <h3>Narxi: {{ subcategory.price }} so'm</h3>
              {% endif %}
 
              <a href="{% url "teacher_profile" subcategory.teacher.id %}" class="inline-btn">O'qituvchi Profilni ko'rish</a>
@@ -164,13 +164,13 @@
                <img src="{{ video.cover_image.url }}" alt="">
                <h3>{{ video.name }}</h3>
                <p>Videoni tomosha qilish uchun kursni xarid qilishingiz kerak</p>
-               <a href="{% url "playlist_pay" subcategory.id %}" class="btn btn-success">Xarid qilish</a>
             </div>
          {% endif %}
       {% endfor %}
       
     </div>
      <!-- Modal HTML -->
+ {% if is_purchased %}
      <div id="quizStartModal" class="modal">
       <div class="modal-content">
           <span class="close">&times;</span>
@@ -183,18 +183,30 @@
               <button class="btn btn-success" id="start-button">Start</button>
           </div>
       </div>
-  </div>
+     </div>
 
   <div class="quiz-container">
       {% for quiz in quizzes %}
-      <div class="quiz-box" data-pk="{{quiz.pk}}" data-date="{{quiz.date}}" data-name="{{quiz.name}}"
-          data-description="{{quiz.description}}" data-topic="{{quiz.topic.name}}"
-          data-questions="{{quiz.number_of_questions}}" data-difficulty="{{quiz.difficulty}}"
-          data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
-          <i class="fas fa-play"></i>
-          <h3>{{ quiz.name }}</h3>
-      </div>
+          <div class="quiz-box" data-pk="{{quiz.pk}}" data-date="{{quiz.date}}" data-name="{{quiz.name}}"
+              data-description="{{quiz.description}}" data-topic="{{quiz.topic.name}}"
+              data-questions="{{quiz.number_of_questions}}" data-difficulty="{{quiz.difficulty}}"
+              data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
+              <i class="fas fa-play"></i>
+              <h3>{{ quiz.name }}</h3>
+          </div>
       {% endfor %}
+  </div>
+ {% else %}
+     <div class="quiz-container">
+    {% for quiz in quizzes %}
+            <div class="quiz-box locked">
+                <i class="fas fa-lock"></i>
+                <h3>{{ quiz.name }}</h3>
+                <p>Ushbu testni boshlash uchun kursni xarid qilishingiz kerak</p>
+            </div>
+    {% endfor %}
+</div>
+ {% endif %}
  
  </section>
 

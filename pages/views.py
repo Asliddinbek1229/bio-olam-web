@@ -12,10 +12,10 @@ from quiz_app.models import Quiz
 from results.models import Result
 from django.views.generic import ListView
 from django.db.models import Q
+from django.contrib import messages
 
 from users.forms import ReviewForm
 from users.models import Review, PurchasedPlaylist
-
 
 # Create your views here.
 def home_page(request):
@@ -142,10 +142,12 @@ def playlist_pay(request, id):
 
         subcategory.is_payment = True
         subcategory.save()  # Yangi xaridni saqlash
+        messages.success(request, "Xaridingiz uchun rahmat")
         return redirect('playlists_view', id=id)
     else:
         # Mablag' yetarli bo'lmagan holat
         print("Hisobingizda mablag' yetarli emas!")
+        messages.error(request, "Hisobingizda mablag' yetarli emas!")
         return redirect('playlists_view', id=id)
 
 

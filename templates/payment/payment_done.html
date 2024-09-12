@@ -4,8 +4,94 @@
 
 {% block content %}
 
-<h3>{{ subcategory.name }}</h3>
-<h1>Xarid qilish</h1>
-<button><a href="{% url "playlists_pay" subcategory.id %}">Xarid qilish</a></button>
+    <section class="about">
+
+        <div class="row">
+
+           <div class="image">
+              <img src="{{ subcategory.image.url }}" alt="">
+           </div>
+
+           <div class="content">
+              <h3>{{ subcategory.name }}</h3>
+              <p><i class="fa-solid fa-chalkboard-user"></i> Kurs o'qituvchisi: {{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</p>
+              <p><i class="fa-solid fa-circle-info"></i> Ma'lumot: {{ subcategory.descriptions }}</p>
+              <h2>Kursni sotib olmoqchi bo'lsangiz "Xarid qilish" tugmasini bosing!</h2>
+              <a href="{% url 'playlists_pay' subcategory.id %}" class="inline-btn">Xarid qilish</a>
+           </div>
+
+        </div>
+
+        <div class="box-container">
+
+           <div class="box">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                 <h3>{{ subcategory.category.name }}</h3>
+                 <p>Kategoriya</p>
+              </div>
+           </div>
+
+           <div class="box">
+              <i class="fas fa-user-graduate"></i>
+              <div>
+                 <h3>+{{ subcategory.student_count }}</h3>
+                 <p>Faol talabalar</p>
+              </div>
+           </div>
+
+           <div class="box">
+              <i class="fas fa-chalkboard-user"></i>
+              <div>
+                 <h2>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h2>
+                 <p>Fan o'tiuvchisi</p>
+              </div>
+           </div>
+
+           <div class="box">
+              <i class="fa-solid fa-video"></i>
+              <div>
+                 <h3>+{{ subcategory.videos_count }} ta</h3>
+                 <p>Videolar soni</p>
+              </div>
+           </div>
+            
+            <div class="box">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                 <h3>+{{ subcategory.course_duration }} minut</h3>
+                 <p>Kurs davomiyligi</p>
+              </div>
+           </div>
+            
+            <div class="box">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <div>
+                 <h3>{{ subcategory.created_at|date:"m/d/Y" }}</h3>
+                 <p>Yaratilgan vaqti</p>
+              </div>
+           </div>
+            
+            <div class="box">
+              <i class="fa-solid fa-money-bill-1-wave"></i>
+              <div>
+                 <h3>{{ subcategory.old_price }} so'm</h3>
+                 <p>Eski narxi</p>
+              </div>
+           </div>
+            
+            <div class="box">
+              <i class="fa-solid fa-scale-unbalanced"></i>
+              <div>
+                 <h3>{{ subcategory.price }} so'm</h3>
+                 <p>Eski narxi</p>
+              </div>
+           </div>
+
+        </div>
+        <a href="{% url 'playlists_pay' subcategory.id %}" class="inline-btn" style="width: 100%;">Xarid qilish</a>
+    
+
+    </section>
 
 {% endblock content %}

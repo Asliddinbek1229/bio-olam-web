@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/asliddin/Desktop/Bio Olam/bio-olam-web/venv/bin/python3" "$0" "$@"
+'''exec' "/home/asliddin/Desktop/Bio Olam/bio-olam-web/venv/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

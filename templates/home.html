@@ -53,25 +53,42 @@
     <div class="box-container">
       
       {% for subcategory in subcategories %}
-       
-      <div class="box">
-         <div class="tutor">
-            <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
-            <div class="info">
-               <h3>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h3>
-               <span>{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
-            </div>
-         </div>
-         <div class="thumb">
-            <img src="{{ subcategory.image.url }}" alt="">
-            <span>{{ subcategory.videos_count }} ta video dars</span>
-         </div>
-         <h3 class="title">{{ subcategory.name }}</h3>
-         <p><del style="text-decoration: line-through; font-size: 12px; color: red;">{{ subcategory.old_price }} so'm</del></p>
-         <p style="font-size: 16px; color: green;"><b>Narxi {{ subcategory.price }} so'm</b></p>
-         <a href="{% url "playlists_view" subcategory.id %}" class="inline-btn">Playlistni ko'rish</a>
-      </div>
-       
+          {% if subcategory.course_type == "Paid" %}
+              <div class="box">
+                 <div class="tutor">
+                    <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+                    <div class="info">
+                       <h3>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h3>
+                       <span>{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
+                    </div>
+                 </div>
+                 <div class="thumb">
+                    <img src="{{ subcategory.image.url }}" alt="">
+                    <span>{{ subcategory.videos_count }} ta video dars</span>
+                 </div>
+                 <h3 class="title">{{ subcategory.name }}</h3>
+                 <p><del style="text-decoration: line-through; font-size: 12px; color: red;">{{ subcategory.old_price }} so'm</del></p>
+                 <p style="font-size: 16px; color: green;"><b>Narxi {{ subcategory.price }} so'm</b></p>
+                 <a href="{% url "playlists_view" subcategory.id %}" class="inline-btn">Playlistni ko'rish</a>
+              </div>
+          {% else %}
+              <div class="box">
+                 <div class="tutor">
+                    <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+                    <div class="info">
+                       <h3>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h3>
+                       <span>{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
+                    </div>
+                 </div>
+                 <div class="thumb">
+                    <img src="{{ subcategory.image.url }}" alt="">
+                    <span>{{ subcategory.videos_count }} ta video dars</span>
+                 </div>
+                 <h3 class="title">{{ subcategory.name }}</h3>
+                 <p style="font-size: 20px; color: green;"><b><span style="color: red; font-weight: 900">BEPUL</span> <i class="fa-regular fa-handshake"></i></b></p>
+                 <a href="{% url "playlists_view" subcategory.id %}" class="inline-btn">Playlistni ko'rish</a>
+              </div>
+          {% endif %}
        {% endfor %}
  
     </div>

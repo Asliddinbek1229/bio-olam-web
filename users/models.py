@@ -97,7 +97,10 @@ class Teachers(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.teacher_type}"
-    
+
+    def update_teacher_stats(self):
+        pass
+
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')

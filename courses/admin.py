@@ -29,6 +29,7 @@ class SubcategoryAdmin(admin.ModelAdmin):
     list_display = [
         'category',
         'teacher',
+        'course_type',
         'name',
         'descriptions',
         'image',

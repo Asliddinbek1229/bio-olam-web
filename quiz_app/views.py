@@ -44,7 +44,7 @@ def save_quiz_view(request, id):
         questions = []
 
         for k in data_.keys():
-            question = Question.objects.get(text=k)
+            question = Question.objects.filter(text=k).first()
             questions.append(question)
 
         profile = Profile.objects.get(user=request.user)

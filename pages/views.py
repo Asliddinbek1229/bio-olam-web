@@ -71,7 +71,7 @@ def tutor_contact_view(request):
     return render(request, 'pages/tutor_contact.html')
 
 def courses_view(request):
-    courses = Subcategory.objects.all()
+    courses = Subcategory.objects.all().order_by('-created_at')
     context = {
         'courses': courses
     }

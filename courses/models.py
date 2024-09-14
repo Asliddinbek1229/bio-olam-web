@@ -21,6 +21,9 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
+    class CourseType(models.TextChoices):
+        Free = "Free", "Free"
+        Paid = "Paid", "Paid"
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -30,6 +33,11 @@ class Subcategory(models.Model):
         'users.Teachers',
         on_delete=models.CASCADE,
         related_name='subcategories'
+    )
+    course_type = models.CharField(
+        max_length=200,
+        choices=CourseType.choices,
+        default=CourseType.Free
     )
     name = models.CharField(max_length=100)
     descriptions = models.TextField()

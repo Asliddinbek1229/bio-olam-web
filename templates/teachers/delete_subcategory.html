@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Kurs qo'shish</title>{% endblock title %}
+
+{% block content %}
+    <h2>Subkategoriya O'chirish</h2>
+    <p>Haqiqatdan ham "{{ subcategory.name }}" subkategoriyasini o'chirishni xohlaysizmi?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">O'chirish</button>
+    </form>
+    <a href="{% url 'home_page' %}">Bekor qilish</a>
+
+
+{% endblock content %}

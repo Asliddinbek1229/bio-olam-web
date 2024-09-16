@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Tahrirlash</title>{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/edi-subcategory.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class=form-container">
+        <h2 style="display: flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 10px">Subkategoriya Tahrirlash</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Saqlash</button>
+    </form>
+
+
+{% endblock content %}

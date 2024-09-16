@@ -101,7 +101,7 @@
 
    <nav class="navbar">
        {% if request.user.is_authenticated %}
-           <a href="#"><i class="fa-solid fa-wallet"> <span>{{ user.profile.balance }} so'm</span></i></a>
+           <a href="{% url 'to_pay' %}"><i class="fa-solid fa-wallet"> <span>{{ user.profile.balance }} so'm</span></i></a>
        {% endif %}
       <a href="{% url "home_page" %}"><i class="fas fa-home"></i><span>Uy</span></a>
       <a href="{% url "about_page" %}"><i class="fas fa-question"></i><span>Biz haqimizda</span></a>
@@ -111,6 +111,10 @@
       {% if request.user.is_staff %}
          <a href="{% url "add_teacher" %}">Teacher qo'shish</a>
       {% endif %}
+       {% if request.user.teacher %}
+           <a href="{% url 'add_subcategory' %}">Kurs qo'shing</a>
+           <a href="{% url 'add_video' %}">Video qo'shish</a>
+       {% endif %}
    </nav>
 
 </div>

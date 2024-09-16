@@ -1,0 +1,48 @@
+/* Form container styling */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input fields styling */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 18px; /* Font size increased */
+    background-color: #fff;
+}
+
+/* Label styling */
+form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+    font-size: 18px; /* Font size increased */
+}
+
+/* Button styling */
+form button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 18px; /* Font size increased */
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}

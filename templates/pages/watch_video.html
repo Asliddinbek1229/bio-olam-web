@@ -27,11 +27,21 @@
        {% if video_is_liked %}
             <form action="{% url 'like_video' video.id %}" method="get" class="flex" id="like-form">
                 <a href="{% url 'playlists_view' video.subcategory.id %}" class="inline-btn">Playlistga qaytish</a>
+                {% if request.user == video.subcategory.teacher.profile.user %}
+                    <a href="{% url 'edit_video' video.id %}" class="inline-btn"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="{% url 'delete_video' video.id %}" class="inline-btn"><i class="fa-solid fa-trash"></i></a>
+                {% endif %}
                 <button type="submit" name="like_video_id" value="{{ video.id }}"><i class="fa-solid fa-heart"></i>Unlike</button>
             </form>
         {% else %}
             <form action="{% url 'like_video' video.id %}" method="get" class="flex" id="like-form">
                 <a href="{% url 'playlists_view' video.subcategory.id %}" class="inline-btn">Playlistga qaytish</a>
+                {% if request.user == video.subcategory.teacher.profile.user %}
+                    <div>
+                        <a href="{% url 'edit_video' video.id %}" class="inline-option-btn"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="{% url 'delete_video' video.id %}" class="inline-delete-btn"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                {% endif %}
                 <button type="submit" name="like_video_id" value="{{ video.id }}"><i class="far fa-heart" id="heart-icon"></i>Like</button>
             </form>
         {% endif %}

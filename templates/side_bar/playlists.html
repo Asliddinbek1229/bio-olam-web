@@ -88,6 +88,10 @@
    font-size: 18px;
    margin: 0;
 }
+
+.video-for {
+    display: flex;
+}
 </style>
 
 <section class="playlist-details">
@@ -141,6 +145,11 @@
                     <a href="{% url "playlist_pay" subcategory.id %}" class="inline-btn">Xarid qilish</a>
                  {% endif %}
              {% endif %}
+              {% if request.user == subcategory.teacher.user %}
+                  <a href="{% url 'edit_subcategory' subcategory.id %}" class="inline-btn"><i class="fa-regular fa-pen-to-square"></i></a>
+                  <a href="{% url 'delete_subcategory' subcategory.id %}" class="inline-btn"><i class="fa-solid fa-trash"></i></a>
+              {% endif %}
+
           </div>
        </div>
     </div>

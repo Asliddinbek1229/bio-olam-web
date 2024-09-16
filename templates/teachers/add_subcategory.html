@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>Kurs qo'shish</title>{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/add_subcategory.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class=form-container">
+        <h2 style="display: flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 10px">Yangi Subkategoriya Qo'shish</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Qo'shish</button>
+    </form>
+
+{% endblock content %}

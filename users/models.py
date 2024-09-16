@@ -31,10 +31,32 @@ class Profile(models.Model):
     bio = models.CharField(max_length=200)
     liked_videos_count = models.PositiveIntegerField(default=0)
     comments_count = models.PositiveIntegerField(default=0)
+    balance = models.PositiveIntegerField(default=0)
 
     
     def __str__(self):
         return f"{self.user.username} profili"
+    
+
+class PurchasedPlaylist(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='purchased_playlists'
+    )
+    subcategory = models.ForeignKey(
+        Subcategory,
+        on_delete=models.CASCADE,
+        related_name='purchased_by_users'
+    )
+    purchased_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'subcategory')
+
+    def __str__(self):
+        return f"{self.user.username} bought {self.subcategory.name}"
+
     
 class Teachers(models.Model):
     class TeacherType(models.TextChoices):
@@ -75,12 +97,17 @@ class Teachers(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.teacher_type}"
-    
+
+    def update_teacher_stats(self):
+        pass
+
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     review_text = models.TextField()
-    rating = models.PositiveSmallIntegerField()
+    rating = models.PositiveSmallIntegerField(
+        help_text="0 dan 5 gacha baho bering"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

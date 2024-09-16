@@ -12,10 +12,10 @@ from quiz_app.models import Quiz
 from results.models import Result
 from django.views.generic import ListView
 from django.db.models import Q
+from django.contrib import messages
 
 from users.forms import ReviewForm
-from users.models import Review
-
+from users.models import Review, PurchasedPlaylist
 
 # Create your views here.
 def home_page(request):
@@ -34,10 +34,11 @@ def home_page(request):
     return render(request, 'home.html', context)
 
 def about_page(request):
-    subcategory_count = Subcategory.objects.count
-    users_count = User.objects.count
-    teachers_count = Teachers.objects.count
+    subcategory_count = Subcategory.objects.count()
+    users_count = User.objects.count()
+    teachers_count = Teachers.objects.count()
     reviews = Review.objects.all().order_by('-created_at')[:6]
+    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -48,12 +49,16 @@ def about_page(request):
     else:
         form = ReviewForm()
     
+    # 5-star rating uchun ro'yxat hosil qilamiz
+    star_range = range(1, 6)
+
     context = {
-       'subcategory_count': subcategory_count,
+        'subcategory_count': subcategory_count,
         'users_count': users_count,
         'teachers_count': teachers_count,
         'reviews': reviews,
         'form': form,
+        'star_range': star_range,  # Bu ro'yxatni templatega uzatamiz
     }
     return render(request, 'side_bar/about.html', context)
 
@@ -66,7 +71,7 @@ def tutor_contact_view(request):
     return render(request, 'pages/tutor_contact.html')
 
 def courses_view(request):
-    courses = Subcategory.objects.all()
+    courses = Subcategory.objects.all().order_by('-created_at')
     context = {
         'courses': courses
     }
@@ -87,6 +92,11 @@ def playlists_view(request, id):
     quizzes = Quiz.objects.filter(topic=subcategory)
     profile = request.user.profile
 
+    # Foydalanuvchi subkategoriyani sotib olganmi yoki yo'qligini tekshirish
+    is_purchased = PurchasedPlaylist.objects.filter(user=request.user, subcategory=subcategory).exists()
+
+
+
     if request.method == 'POST':
         if profile.saved_playlists.filter(id=subcategory.id).exists():
             profile.saved_playlists.remove(subcategory)
@@ -104,10 +114,41 @@ def playlists_view(request, id):
         'subcategory': subcategory,
         'videos': videos,
          'is_saved': profile.saved_playlists.filter(id=subcategory.id).exists(),
+         'is_purchased': is_purchased,
          'quizzes': quizzes,
          'quiz_results': quiz_results,
     }
     return render(request, 'side_bar/playlists.html', context)
+
+def playlists_done(request, id):
+    subcategory = get_object_or_404(Subcategory, id=id)
+    return render(request, 'payment/payment_done.html', context={'subcategory': subcategory})
+
+def playlist_pay(request, id):
+    subcategory = get_object_or_404(Subcategory, id=id)
+    profile = request.user.profile
+
+    # Foydalanuvchi balansini tekshirish
+    if profile.balance >= subcategory.price:
+        # Balansdan narxni yechish
+        profile.balance -= subcategory.price
+        profile.save()  # Yangi balansni saqlash
+
+        # Xaridni `PurchasedPlaylist` modeliga yozish
+        PurchasedPlaylist.objects.create(user=request.user, subcategory=subcategory)
+
+        # Xaridni tasdiqlash va foydalanuvchini playlistga qaytarish
+        print("Xaridingiz uchun tashakkur")
+
+        subcategory.is_payment = True
+        subcategory.save()  # Yangi xaridni saqlash
+        messages.success(request, "Xaridingiz uchun rahmat")
+        return redirect('playlists_view', id=id)
+    else:
+        # Mablag' yetarli bo'lmagan holat
+        print("Hisobingizda mablag' yetarli emas!")
+        messages.error(request, "Hisobingizda mablag' yetarli emas!")
+        return redirect('playlists_view', id=id)
 
 
 def like_video(request, id):

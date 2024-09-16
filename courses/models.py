@@ -21,6 +21,9 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
+    class CourseType(models.TextChoices):
+        Free = "Free", "Free"
+        Paid = "Paid", "Paid"
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -30,6 +33,11 @@ class Subcategory(models.Model):
         'users.Teachers',
         on_delete=models.CASCADE,
         related_name='subcategories'
+    )
+    course_type = models.CharField(
+        max_length=200,
+        choices=CourseType.choices,
+        default=CourseType.Free
     )
     name = models.CharField(max_length=100)
     descriptions = models.TextField()
@@ -42,6 +50,9 @@ class Subcategory(models.Model):
     student_count = models.IntegerField(default=0)
     course_duration = models.IntegerField(default=0)
     videos_count = models.IntegerField(default=0)
+    is_payment = models.BooleanField(default=False)
+    old_price = models.IntegerField(default=0)
+    price = models.BigIntegerField(default=0)
 
     def update_course_duration(self):
         total_duration = sum(video.time for video in self.videos_set.all())
@@ -84,6 +95,7 @@ class Videos(models.Model):
     likes_num = models.ManyToManyField(User, related_name="videos_like", blank=True)
     comment_num = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now)
+    cover_image = models.ImageField(upload_to="videos/covers/", default="static/images/post-1-1.png")
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

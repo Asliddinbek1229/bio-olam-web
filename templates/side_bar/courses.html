@@ -10,25 +10,46 @@
  
     <div class="box-container">
       {% for course in courses %}
-      
-      <div class="box">
-         <div class="tutor">
-            <img src="{{ course.teacher.profile.photo.url }}" alt="">
-            <div class="info">
-               <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
-               <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>
-            </div>
-         </div>
-         <div class="thumb">
-            <img src="{{ course.image.url }}" alt="">
-            <span>{{ course.videos_count }} ta video</span>
-         </div>
-         <h3 class="title">{{ course.name }}</h3>
-         <a href="{% url "playlists_view" course.id %}" class="inline-btn">Kursni ko'rish</a>
-      </div>
-      
+
+      {% if course.course_type == "Paid" %}
+          <div class="box">
+             <div class="tutor">
+                <img src="{{ course.teacher.profile.photo.url }}" alt="">
+                <div class="info">
+                   <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
+                   <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>
+                </div>
+             </div>
+             <div class="thumb">
+                <img src="{{ course.image.url }}" alt="">
+                <span>{{ course.videos_count }} ta video</span>
+             </div>
+             <h3 class="title">{{ course.name }}</h3>
+             <p><del style="text-decoration: line-through; font-size: 12px; color: red;">{{ course.old_price }} so'm</del></p>
+             <p style="font-size: 16px; color: green;"><b>Narxi {{ course.price }} so'm</b></p>
+             <a href="{% url "playlists_view" course.id %}" class="inline-btn">Kursni ko'rish</a>
+          </div>
+      {% else %}
+            <div class="box">
+             <div class="tutor">
+                <img src="{{ course.teacher.profile.photo.url }}" alt="">
+                <div class="info">
+                   <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
+                   <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>
+                </div>
+             </div>
+             <div class="thumb">
+                <img src="{{ course.image.url }}" alt="">
+                <span>{{ course.videos_count }} ta video</span>
+             </div>
+             <h3 class="title">{{ course.name }}</h3>
+             <p style="font-size: 20px; color: green;"><b><span style="color: red; font-weight: 900">BEPUL</span> <i class="fa-regular fa-handshake"></i></b></p>
+             <a href="{% url "playlists_view" course.id %}" class="inline-btn">Kursni ko'rish</a>
+          </div>
+      {% endif %}
+
       {% endfor %}
- 
+
     </div>
  
  </section>

@@ -206,3 +206,7 @@ class SearchResultsView(ListView):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('search')
         return context
+
+
+def to_pay(request):
+    return render(request, 'payment/to_pay.html')

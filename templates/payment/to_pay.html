@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>To pay</title>{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/tutor-contact.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class="ag-format-container">
+        <h1>Hisobingiz to'ldirish uchun telegram orqali aloqaga chiqing!</h1>
+        <div class="ag-courses_box">
+          <div class="ag-courses_item">
+            <a href="https://t.me/Asliddinbek_official" class="ag-courses-item_link">
+              <div class="ag-courses-item_bg"></div>
+      
+              <div class="ag-courses-item_title">
+                Telegram
+              </div>
+              <div id="telegram">
+                <i class="fa-brands fa-telegram"></i>
+              </div>
+      
+              <div class="ag-courses-item_date-box">
+                Biz bilan bog'laning
+              </div>
+            </a>
+          </div>
+      
+        </div>
+    </div>
+{% endblock content %}

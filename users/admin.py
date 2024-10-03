@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Teachers, Review, PurchasedPlaylist
+from .models import Profile, Teachers, Review, PurchasedPlaylist, AdminIncome
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -37,4 +37,9 @@ class PurchasedPlaylistAdmin(admin.ModelAdmin):
         'subcategory',
         'purchased_at',
     ]
-    
+
+@admin.register(AdminIncome)
+class AdminIncomeAdmin(admin.ModelAdmin):
+    list_display = [
+        'income'
+    ]

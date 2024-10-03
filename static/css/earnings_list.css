@@ -1,0 +1,108 @@
+body {
+    font-family: helvetica, arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+}
+
+.table-responsive {
+    overflow-x: auto; /* Kichik ekranlarda gorizontal scroll uchun */
+    margin: 0 auto;  /* Jadval markazda joylashishi uchun */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+th {
+    text-align: left;
+    color: #D5DDE5;
+    background: #1b1e24;
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 10px 15px 12px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 10px 15px 12px;
+}
+
+tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color: #666B85;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:first-child {
+    border-top: none;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+tr:nth-child(odd) td {
+    background: #EBEBEB;
+}
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 3px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 100%; /* Kichik ekranlarda ham kenglik 100% bo'ladi */
+    }
+
+    th, td {
+        padding: 8px; /* Kichik ekranlar uchun to'siqlarni ozaytirish */
+    }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 700px) {
+    .table-responsive {
+        overflow-x: auto; /* Kichik ekranlarda gorizontal scroll uchun */
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block; /* Har bir ustunni blok shaklida ko'rsatish */
+        width: 100%; /* Kichik ekranlarda ustun kengligini 100% ga o'zgartirish */
+        box-sizing: border-box; /* To'g'ri hisoblash uchun */
+    }
+
+    tr {
+        margin-bottom: 10px; /* Har bir satr orasida bo'shliq */
+    }
+
+    th {
+        display: none; /* Kichik ekranlarda th ni yashirish */
+    }
+
+    td {
+        text-align: right; /* O'ngga hizalash */
+        padding: 10px; /* Kichik ekranlar uchun to'siqlarni ozaytirish */
+        border: none; /* Kichik ekranlarda bo'sh joy ko'rsatish uchun */
+    }
+
+    td::before {
+        content: attr(data-label); /* Ustun nomini ko'rsatish */
+        float: left; /* Chapga hizalash */
+        font-weight: bold; /* Qalin qilish */
+    }
+}

@@ -3,6 +3,10 @@
 
 {% block title %}<title>Biz haqimizda</title>{% endblock title %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/about_form.css' %}">
+{% endblock head %}
+
 {% block content %}
 
 <section class="about">
@@ -88,15 +92,13 @@
     </div>
     <section class="add-review">
       <h1>Fikr qo'shish</h1>
-      <form method="POST">
+      <form method="POST" class="review-form">
          {% csrf_token %}
          {{ form.as_p }}
-         <button type="submit">Yuborish</button>
+         <button type="submit" class="submit-btn">Yuborish</button>
       </form>
    </section>
  
  </section>
 
 {% endblock content %}
-
-

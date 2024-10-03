@@ -13,6 +13,7 @@ from results.models import Result
 from django.views.generic import ListView
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from users.forms import ReviewForm
 from users.models import Review, PurchasedPlaylist
@@ -33,22 +34,28 @@ def home_page(request):
     }
     return render(request, 'home.html', context)
 
+
 def about_page(request):
     subcategory_count = Subcategory.objects.count()
     users_count = User.objects.count()
     teachers_count = Teachers.objects.count()
     reviews = Review.objects.all().order_by('-created_at')[:6]
-    
+
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.save()
-            return redirect('about_page')
+        if request.user.is_authenticated:  # Foydalanuvchining login qilganligini tekshiramiz
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.save()
+                messages.success(request, "Sharhingiz muvaffaqiyatli qo'shildi!")
+                return redirect('about_page')
+        else:
+            messages.error(request, "Sharh qoldirish uchun avval saytga kirishingiz kerak.")
+            return redirect('login')  # Foydalanuvchini login sahifasiga yo'naltiramiz
     else:
         form = ReviewForm()
-    
+
     # 5-star rating uchun ro'yxat hosil qilamiz
     star_range = range(1, 6)
 
@@ -87,6 +94,7 @@ def category_detail_view(request, id):
     }
     return render(request, 'pages/category_detail.html', context)
 
+@login_required()
 def playlists_view(request, id):
     subcategory = get_object_or_404(Subcategory.objects.all(), id=id)
     quizzes = Quiz.objects.filter(topic=subcategory)

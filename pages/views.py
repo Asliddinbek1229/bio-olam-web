@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from courses.models import Category, Subcategory, Videos, Likes, Comments
 from django.contrib.auth.models import User
-from users.models import Teachers
+from users.models import Teachers, Profile, AdminIncome
 from .forms import CommentForm
 from courses.models import Comments
 from quiz_app.models import Quiz
@@ -13,7 +13,8 @@ from results.models import Result
 from django.views.generic import ListView
 from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from decimal import Decimal
 
 from users.forms import ReviewForm
 from users.models import Review, PurchasedPlaylist
@@ -132,6 +133,7 @@ def playlists_done(request, id):
     subcategory = get_object_or_404(Subcategory, id=id)
     return render(request, 'payment/payment_done.html', context={'subcategory': subcategory})
 
+
 def playlist_pay(request, id):
     subcategory = get_object_or_404(Subcategory, id=id)
     profile = request.user.profile
@@ -145,18 +147,71 @@ def playlist_pay(request, id):
         # Xaridni `PurchasedPlaylist` modeliga yozish
         PurchasedPlaylist.objects.create(user=request.user, subcategory=subcategory)
 
-        # Xaridni tasdiqlash va foydalanuvchini playlistga qaytarish
-        print("Xaridingiz uchun tashakkur")
+        # Daromadlarni hisoblash
+        teacher_income = Decimal(subcategory.price) * Decimal('0.60')
+        admin_income = Decimal(subcategory.price) * Decimal('0.40')
 
-        subcategory.is_payment = True
-        subcategory.save()  # Yangi xaridni saqlash
-        messages.success(request, "Xaridingiz uchun rahmat")
+        # O'qituvchining daromadini yangilash
+        teacher = subcategory.teacher  # O'qituvchini subkategoriya orqali olish
+        teacher.income += teacher_income
+        teacher.save()
+
+        # Adminning daromadini yangilash
+        admin_profile = Profile.objects.filter(user__is_superuser=True).first()
+        if admin_profile:
+            # Admin daromad obyektini yaratishda income qiymatini ham ko'rsatamiz
+            admin_income_obj, created = AdminIncome.objects.get_or_create(
+                profile=admin_profile,
+                defaults={'income': admin_income}
+            )
+            if not created:
+                # Agar obyekt allaqachon mavjud bo'lsa, daromadni yangilaymiz
+                admin_income_obj.income += admin_income
+                admin_income_obj.save()
+
+        # Xaridni tasdiqlash va foydalanuvchini playlistga qaytarish
+        messages.success(request, "Xaridingiz uchun rahmat!")
         return redirect('playlists_view', id=id)
     else:
         # Mablag' yetarli bo'lmagan holat
-        print("Hisobingizda mablag' yetarli emas!")
         messages.error(request, "Hisobingizda mablag' yetarli emas!")
         return redirect('playlists_view', id=id)
+
+
+
+@login_required
+def earning_list(request):
+    # Foydalanuvchi admin yoki teacher bo'lishini tekshirish
+    if not (hasattr(request.user, 'teacher') or request.user.is_staff):
+        messages.error(request, "Sizga bu sahifaga kirishga ruxsat yo'q.")
+        return redirect('home_page')  # Redirect qilingan sahifani yozing
+
+    # Xarid qilingan kurslar ro'yxatini olish
+    purchased_playlists = PurchasedPlaylist.objects.select_related('subcategory', 'user')
+
+    # Agar foydalanuvchi o'qituvchi bo'lsa, o'z subcategorylaridan xarid qilingan kurslarni olish
+    if hasattr(request.user, 'teacher') and not request.user.is_staff:
+        purchased_playlists = purchased_playlists.filter(subcategory__teacher=request.user.teacher)
+
+    total_teacher_income = 0
+    total_admin_income = 0
+
+    # Har bir xarid bo'yicha daromadlarni hisoblash
+    for purchase in purchased_playlists:
+        teacher_income = purchase.subcategory.price * 0.6  # O'qituvchi daromadi (60%)
+        admin_income = purchase.subcategory.price * 0.4  # BioOlam daromadi (40%)
+
+        total_teacher_income += teacher_income
+        total_admin_income += admin_income
+
+    context = {
+        'purchased_playlists': purchased_playlists,
+        'total_teacher_income': total_teacher_income,
+        'total_admin_income': total_admin_income,
+    }
+
+    return render(request, "earnings/earnings_list.html", context)
+
 
 
 def like_video(request, id):

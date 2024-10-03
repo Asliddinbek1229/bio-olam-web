@@ -89,7 +89,7 @@ class ProfileEditForm(forms.ModelForm):
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teachers
-        fields = ['user', 'teacher_type', 'bio',]
+        fields = ['user', 'teacher_type', 'profile', 'bio',]
 
 
 class ReviewForm(forms.ModelForm):

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}<title>Hisob kitob</title>{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/earnings_list.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <br><h1 style="text-align: center">Xarid qilingan kurslar</h1><br>
+
+    <div class="table-responsive">
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Tartib</th>
+                    <th>Kurs</th>
+                    <th>Xaridor</th>
+                    <th>Kurs narxi</th>
+                    <th>O'qituvchi</th>
+                    <th>O'qituvchi daromadi</th>
+                    <th>BioOlam daromadi</th>
+                    <th>Xarid qilingan vaqt</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {% for purchase in purchased_playlists %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ purchase.subcategory.name }}</td>
+                    <td>{{ purchase.user.username }}</td>
+                    <td>{{ purchase.subcategory.price|floatformat:2 }}</td>
+                    <td>{{ purchase.subcategory.teacher.user.first_name }}</td>
+                    <td>{{ purchase.subcategory.price|floatformat:2|mul:0.6 }}</td>
+                    <td>{{ purchase.subcategory.price|floatformat:2|mul:0.4 }}</td>
+                    <td>{{ purchase.purchased_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2 style="text-align: start">O'qituvchi daromadi: {{ total_teacher_income|floatformat:2 }}</h2>
+    <h2 style="text-align: start">BioOlam daromadi: {{ total_admin_income|floatformat:2 }}</h2>
+{% endblock content %}

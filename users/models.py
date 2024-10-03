@@ -36,7 +36,7 @@ class Profile(models.Model):
     
     def __str__(self):
         return f"{self.user.username} profili"
-    
+
 
 class PurchasedPlaylist(models.Model):
     user = models.ForeignKey(
@@ -57,6 +57,12 @@ class PurchasedPlaylist(models.Model):
     def __str__(self):
         return f"{self.user.username} bought {self.subcategory.name}"
 
+class AdminIncome(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, default=1)
+    income = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.income}"
     
 class Teachers(models.Model):
     class TeacherType(models.TextChoices):
@@ -94,6 +100,7 @@ class Teachers(models.Model):
     student_num = models.IntegerField(default=0)
     likes_num = models.IntegerField(default=0)
     comments_num = models.IntegerField(default=0)
+    income = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def __str__(self):
         return f"{self.user.username} - {self.teacher_type}"

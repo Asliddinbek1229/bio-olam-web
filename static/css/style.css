@@ -90,6 +90,20 @@ section{
    margin-top: 1rem;
 }
 
+.admin-btn {
+   width: 70%;
+   margin: 0 auto;
+   border-radius: .5rem;
+   color:#fff;
+   font-size: 1.8rem;
+   cursor: pointer;
+   text-transform: capitalize;
+   padding:1rem 3rem;
+   text-align: center;
+   margin-top: 1rem;
+   background-color: #8e44ad;
+}
+
 .btn,
 .delete-btn,
 .option-btn{
@@ -126,6 +140,12 @@ section{
 .option-btn:hover{
    background-color: var(--black);
    color: var(--white);
+}
+
+.admin-btn:hover {
+   background-color: var(--black);
+   color: #000000;
+   transition: .5s ease;
 }
 
 .flex-btn{
@@ -310,7 +330,7 @@ section{
 
 .side-bar .navbar a{
    display: block;
-   padding: 2rem;
+   padding: 1.5rem;
    font-size: 2rem;
 }
 

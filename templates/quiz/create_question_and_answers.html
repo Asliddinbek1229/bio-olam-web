@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>Yangi Savol Qo'shish</title>{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/quiz_form.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class="form-container">
+        <form method="POST" class="quiz-form">
+            {% csrf_token %}
+            <h2>Yangi Savol Yaratish</h2>
+            <div class="form-group">
+                {{ question_form.as_p }}
+            </div>
+    
+            <h2>Javoblar</h2>
+            <div class="form-group">
+                {{ answer_formset.management_form }}
+                {% for form in answer_formset %}
+                    <div class="answer-group">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+    
+            <button type="submit" class="submit-btn">Yaratish</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -14,6 +14,7 @@
    <!-- custom css file link  -->
    <link rel="stylesheet" href="{% static 'css/style.css' %}">
    <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
+   <link rel="stylesheet" href="{% static 'css/admin_drop.css' %}">
    <link type="text/css" href="{% static 'sweetalert2/sweetalert2.min.css' %}">
    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -108,15 +109,20 @@
       <a href="{% url "courses_view" %}"><i class="fas fa-graduation-cap"></i><span>Kurslar</span></a>
       <a href="{% url "teachers_view" %}"><i class="fas fa-chalkboard-user"></i><span>O'qituvchilar</span></a>
       <a href="{% url "contact_me" %}"><i class="fas fa-headset"></i><span>Biz bilan aloqa</span></a>
-      <a href="{% url "earning" %}"><i class="fas fa-headset"></i><span>Hisob kitob</span></a>
-      <div>
-          {% if request.user.is_staff %}
-             <a href="{% url "add_teacher" %}" style="padding: 0 1.5rem 0 1.5rem" class="admin-btn">Teacher qo'shish</a>
-          {% endif %}
-           {% if request.user.teacher %}
-               <a href="{% url 'add_subcategory' %}" style="padding: 0 1.5rem 0 1.5rem" class="admin-btn">Kurs qo'shing</a>
-               <a href="{% url 'add_video' %}" style="padding: 0 1.5rem 0 1.5rem" class="admin-btn">Video qo'shish</a>
-           {% endif %}
+      <a href="{% url "earning" %}"><i class="fa-solid fa-calculator"></i><span>Hisob kitob</span></a>
+       {% if request.user.is_staff %}
+           <a href="{% url "add_teacher" %}"><i class="fa-solid fa-plus"></i><span>O'qituvchi qo'shish</span></a>
+       {% endif %}
+      <div class="dropdown">
+        {% if request.user.teacher %}
+            <button class="dropbtn">O'qituvchi uchun</button>
+            <div class="dropdown-content">
+                <a href="{% url 'add_subcategory' %}" class="admin-btn">Kurs qo'shing</a>
+                <a href="{% url 'add_video' %}" class="admin-btn">Video qo'shish</a>
+                <a href="{% url 'create-quiz' %}" class="admin-btn">Quiz qo'shish</a>
+                <a href="{% url 'create-question-answer' %}" class="admin-btn">Savollar va javoblar qo'shish</a>
+            </div>
+        {% endif %}
       </div>
    </nav>
 
@@ -149,6 +155,7 @@
     {% endfor %}
   </script>
 {% endif %}
+
 
    
 </body>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>{{ question.text }} - Savol va Javoblarni tahrirlash</title>{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/quiz_form.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>{{ question.text }} - Savolni va Javoblarni tahrirlash</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ question_form.as_p }}
+            </div>
+
+            <h3>Javoblarni tahrirlash</h3>
+            {{ answer_formset.management_form }}
+            {% for form in answer_formset %}
+                <div class="answer-group">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Saqlash</button>
+        </form>
+    </div>
+{% endblock content %}

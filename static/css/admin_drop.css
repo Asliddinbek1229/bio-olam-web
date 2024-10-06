@@ -1,0 +1,50 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: .5rem;
+    color:#fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    text-transform: capitalize;
+    padding:1rem 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    background-color: #8e44ad;
+}
+
+.dropdown-content {
+    display: none; /* Dastlab yashirin */
+    position: absolute; /* Tugma ostida joylashish */
+    background-color: #f9f9f9; /* Fon rangi */
+    min-width: 160px; /* Minimal kenglik */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Soyali effekt */
+    z-index: 1; /* Boshqa elementlar ustida ko'rinishi */
+    bottom: 100%; /* Tugmadan yuqorida joylashadi */
+    left: 0; /* Tugma bilan bir xil joylashish */
+}
+
+.dropdown-content a {
+    color: black; /* Matn rangi */
+    padding: 12px 16px; /* Link uchun joy */
+    text-decoration: none; /* Chizilgan holdan chiqarish */
+    display: block; /* To'liq kenglikda ko'rsatish */
+    transition: .5s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Hover holatida fon rangi */
+}
+
+/* Hover holatida ko'rsatish */
+.dropdown:hover .dropdown-content {
+    display: block; /* Hover holatida ko'rsatish */
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41; /* Hover holatidagi tugma rangi */
+}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}<title>Yangi Quiz Qo'shish</title>{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/quiz_form.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class="form-container">
+        <h2>Yangi Quiz Yaratish</h2>
+        <form method="POST" class="quiz-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="submit-btn">Yaratish</button>
+        </form>
+    </div>
+
+{% endblock content %}

@@ -4,7 +4,8 @@ from results.models import Result
 from questions.models import Question, Answer
 from .models import Quiz
 from users.models import Profile
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+
 
 class QuizDetailView(DetailView):
     model = Quiz

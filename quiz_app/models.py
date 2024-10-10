@@ -5,6 +5,8 @@ import random
 from django.db import models
 from courses.models import Subcategory
 
+from django.contrib.auth.models import User
+
 # Validators
 from validators.validators import PERCENTAGE_VALIDATOR
 
@@ -34,13 +36,20 @@ class Quiz(models.Model):
         null=True
     )
 
-    topic = models.ForeignKey(
+    subcategory = models.ForeignKey(
         Subcategory,
         on_delete=models.SET_NULL,
         help_text="Viktorina baholanadigan mavzu",
         null=True,
         blank=True,
         related_name="quizes" # The way we reference the quiz using a Topic object
+    )
+    teacher = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='quizzes',  # O'qituvchi orqali quizlarga murojaat qilish
+        help_text="Viktorinani yaratgan o'qituvchi",
+        default=None,
     )
 
     number_of_questions = models.IntegerField()
@@ -64,7 +73,7 @@ class Quiz(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name} - {self.topic.name}"
+        return f"{self.name} - {self.subcategory.name}"
 
     @property
     def get_questions(self):

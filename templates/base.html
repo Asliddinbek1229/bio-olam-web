@@ -117,13 +117,14 @@
         {% if request.user.teacher %}
             <button class="dropbtn">O'qituvchi uchun</button>
             <div class="dropdown-content">
-                <a href="{% url 'add_subcategory' %}" class="admin-btn">Kurs qo'shing</a>
-                <a href="{% url 'add_video' %}" class="admin-btn">Video qo'shish</a>
-                <a href="{% url 'create-quiz' %}" class="admin-btn">Quiz qo'shish</a>
-                <a href="{% url 'create-question-answer' %}" class="admin-btn">Savollar va javoblar qo'shish</a>
+                <a href="{% url 'add_subcategory' %}" class="admin-btn confirm-link" data-message="Kurs yaratmoqchimisiz?">Kurs qo'shing</a>
+                <a href="{% url 'add_video' %}" class="admin-btn confirm-link" data-message="Video qo'shmoqchimisiz?">Video qo'shish</a>
+                <a href="{% url 'create-quiz' %}" class="admin-btn confirm-link" data-message="Quiz yaratmoqchimisiz?">Quiz qo'shish</a>
+                <a href="{% url 'create-question-answer' %}" class="admin-btn confirm-link" data-message="Savollar va javoblar qo'shmoqchimisiz?">Savollar va javoblar qo'shish</a>
             </div>
         {% endif %}
       </div>
+
    </nav>
 
 </div>
@@ -156,6 +157,34 @@
   </script>
 {% endif %}
 
+<script>
+    // Barcha 'confirm-link' klassli linklarni olish
+    document.querySelectorAll('.confirm-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Default harakatni bloklaymiz
+
+            // Linkdagi 'data-message' atributidagi xabarni olish
+            const message = link.getAttribute('data-message');
+            const url = link.getAttribute('href'); // URLni olish
+
+            // SweetAlert2 modalini ko'rsatamiz
+            Swal.fire({
+                title: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ha, davom etaman!',
+                cancelButtonText: 'Bekor qilish'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Tasdiqlangandan so'ng sahifaga o'tamiz
+                    window.location.href = url;
+                }
+            });
+        });
+    });
+</script>
 
    
 </body>

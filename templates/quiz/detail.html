@@ -16,7 +16,7 @@
 {% block content %}
 <div class="container-quiz1">
   <div class="container-quiz">
-    <h1>Quiz: {{quiz.name}} ({{ quiz.topic.name }})</h1>
+    <h1>Quiz: {{quiz.name}} ({{ quiz.subcategory.name }})</h1>
   </div>
 
   <div class="row">
@@ -30,7 +30,7 @@
   </div>
 
   <div class="py-3">
-      <a href="{% url "playlists_view" quiz.topic.id %}" class="btn btn-danger">
+      <a href="{% url "playlists_view" quiz.subcategory.id %}" class="btn btn-danger">
           Ortga qaytish
       </a>
   </div>

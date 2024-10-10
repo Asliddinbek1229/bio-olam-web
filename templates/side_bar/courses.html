@@ -14,7 +14,11 @@
       {% if course.course_type == "Paid" %}
           <div class="box">
              <div class="tutor">
-                <img src="{{ course.teacher.profile.photo.url }}" alt="">
+                {% if subcategory.teacher.profile.photo %}
+                    <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'images/user.png' %}" alt="">
+                {% endif %}
                 <div class="info">
                    <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
                    <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>
@@ -32,7 +36,11 @@
       {% else %}
             <div class="box">
              <div class="tutor">
-                <img src="{{ course.teacher.profile.photo.url }}" alt="">
+                {% if subcategory.teacher.profile.photo %}
+                    <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'images/user.png' %}" alt="">
+                {% endif %}
                 <div class="info">
                    <h3>{{ course.teacher.user.first_name }} {{ course.teacher.user.last_name }}</h3>
                    <span>{{ course.created_at|date:"d-m-Y / H:i" }}</span>

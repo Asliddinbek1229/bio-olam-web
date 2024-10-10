@@ -10,32 +10,36 @@ from .forms import QuizForm, QuestionForm, AnswerForm
 # Create your views here.
 def create_quiz_view(request):
     if request.method == 'POST':
-        form = QuizForm(request.POST)
+        form = QuizForm(request.POST, user=request.user)  # Foydalanuvchini formaga uzatamiz
         if form.is_valid():
-            form.save()
+            quiz = form.save(commit=False)  # Quiz obyektini yaratamiz, lekin saqlamaymiz
+            quiz.teacher = request.user  # Quiz uchun teacher'ni joriy foydalanuvchi sifatida belgilaymiz
+            quiz.save()  # Endi quizni saqlaymiz
             return redirect('home_page')  # Quizlar ro'yxatiga qaytish
     else:
-        form = QuizForm()
+        form = QuizForm(user=request.user)  # Foydalanuvchini formaga uzatamiz
+
     return render(request, 'quiz/create_quiz.html', {'form': form})
 
 def create_question_and_answers_view(request):
-    AnswerFormSet = formset_factory(AnswerForm, extra=4)  # 4 ta Answer kiritish uchun formset yaratamiz
+    AnswerFormSet = formset_factory(AnswerForm, extra=4)
+    teacher = request.user  # Foydalanuvchi obyektini olamiz
 
     if request.method == 'POST':
-        question_form = QuestionForm(request.POST)
+        question_form = QuestionForm(request.POST, teacher=teacher)
         answer_formset = AnswerFormSet(request.POST)
 
         if question_form.is_valid() and answer_formset.is_valid():
-            question = question_form.save()  # Savolni saqlaymiz
+            question = question_form.save()
 
             for answer_form in answer_formset:
                 answer = answer_form.save(commit=False)
-                answer.question = question  # Har bir Answer'ni ushbu savolga bog'laymiz
+                answer.question = question
                 answer.save()
 
-            return redirect('home_page')  # Muvaffaqiyatli yaratgandan so'ng redirect qilamiz
+            return redirect('home_page')
     else:
-        question_form = QuestionForm()
+        question_form = QuestionForm(teacher=teacher)
         answer_formset = AnswerFormSet()
 
     return render(request, 'quiz/create_question_and_answers.html', {

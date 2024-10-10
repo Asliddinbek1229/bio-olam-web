@@ -122,7 +122,11 @@
        </div>
        <div class="column">
           <div class="tutor">
-             <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+             {% if subcategory.teacher.profile.photo %}
+                 <img src="{{ subcategory.teacher.profile.photo.url }}" alt="">
+             {% else %}
+                 <img src="{% static 'images/user.png' %}" alt="">
+             {% endif %}
              <div>
                 <h3>{{ subcategory.teacher.user.first_name }} {{ subcategory.teacher.user.last_name }}</h3>
                 <span>{{ subcategory.created_at|date:"d-m-Y / H:i" }}</span>
@@ -207,7 +211,7 @@
           <div class="quiz-container">
               {% for quiz in quizzes %}
                   <div class="quiz-box" data-pk="{{quiz.pk}}" data-date="{{quiz.date}}" data-name="{{quiz.name}}"
-                      data-description="{{quiz.description}}" data-topic="{{quiz.topic.name}}"
+                      data-description="{{quiz.description}}" data-topic="{{quiz.subcategory.name}}"
                       data-questions="{{quiz.number_of_questions}}" data-difficulty="{{quiz.difficulty}}"
                       data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
                       <i class="fas fa-play"></i>
@@ -244,7 +248,7 @@
          <div class="quiz-container">
              {% for quiz in quizzes %}
                  <div class="quiz-box" data-pk="{{quiz.pk}}" data-date="{{quiz.date}}" data-name="{{quiz.name}}"
-                      data-description="{{quiz.description}}" data-topic="{{quiz.topic.name}}"
+                      data-description="{{quiz.description}}" data-topic="{{quiz.subcategory.name}}"
                       data-questions="{{quiz.number_of_questions}}" data-difficulty="{{quiz.difficulty}}"
                       data-time="{{quiz.time}}" data-pass="{{quiz.required_score}}">
                       <i class="fas fa-play"></i>

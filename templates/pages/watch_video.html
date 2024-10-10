@@ -17,8 +17,12 @@
           <p class="date"><i class="fas fa-calendar"></i><span>{{ video.created_at|date:"d-m-Y / H:i" }}</span></p>
           <p class="date"><i class="fas fa-heart"></i><span>{{ number_of_likes }} likes</span></p>
        </div>
-       <div class="tutor">
-          <img src="{{ video.subcategory.teacher.profile.photo.url }}" alt="">
+        <div class="tutor">
+            {% if video.subcategory.teacher.profile.photo %}
+                <img src="{{ video.subcategory.teacher.profile.photo.url }}" alt="">
+            {% else %}
+                <img src="{% static 'images/user.png' %}" alt="">
+           {% endif %}
           <div>
              <h3>{{ video.subcategory.teacher.user.first_name }} {{ video.subcategory.teacher.user.last_name }}</h3>
              <span>Mutahasisligi: {{ video.subcategory.teacher.teacher_type }}</span>

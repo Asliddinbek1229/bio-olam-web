@@ -8,7 +8,7 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = [
         'name',
         'date',
-        'topic',
+        'subcategory',
         'number_of_questions',
         'time',
         'required_score',
@@ -17,13 +17,12 @@ class QuizAdmin(admin.ModelAdmin):
     list_filter = [
         'name',
         'date',
-        'topic',
+        'subcategory',
         'number_of_questions',
     ]
     search_fields = [
         'name',
         'date',
-        'topic',
         'number_of_questions',
     ]
     ordering = [

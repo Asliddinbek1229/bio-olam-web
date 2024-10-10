@@ -98,7 +98,7 @@ def category_detail_view(request, id):
 @login_required()
 def playlists_view(request, id):
     subcategory = get_object_or_404(Subcategory.objects.all(), id=id)
-    quizzes = Quiz.objects.filter(topic=subcategory)
+    quizzes = Quiz.objects.filter(subcategory=subcategory)
     profile = request.user.profile
 
     # Foydalanuvchi subkategoriyani sotib olganmi yoki yo'qligini tekshirish

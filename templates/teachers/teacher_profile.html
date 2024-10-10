@@ -12,8 +12,12 @@
     <h1 class="heading">{{ teacher.user.first_name }} {{ teacher.user.last_name }} profili</h1>
  
     <div class="details">
-       <div class="tutor">
-          <img src="{{ teacher.user.profile.photo.url    }}" alt="Teacher photo">
+        <div class="tutor">
+            {% if teacher.user.profile.photo %}
+                <img src="{{ teacher.user.profile.photo.url }}" alt="Teacher photo">
+            {% else %}
+                <img src="{% static 'images/user.png' %}" alt="Teacher photo">
+           {% endif %}
           <h3>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h3>
           <span>{{ teacher.teacher_type }}</span><br>
           <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum quas a ratione quam, et nostrum cumque! Ducimus, amet?</span>

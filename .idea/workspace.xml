@@ -6,19 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="592f4038-e6f1-4ccb-9abb-7cbf30944e18" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/courses/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/courses/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/questions/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/questions/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/questions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/questions/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/quiz_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/quiz_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pages/watch_video.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/watch_video.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quiz/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quiz/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/side_bar/courses.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/side_bar/courses.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/side_bar/playlists.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/side_bar/playlists.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/teachers/teacher_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teachers/teacher_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payment/payment_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payment/payment_done.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +109,8 @@
       <workItem from="1728105246328" duration="3608000" />
       <workItem from="1728115034800" duration="9000" />
       <workItem from="1728186797130" duration="5306000" />
-      <workItem from="1728557269805" duration="4778000" />
+      <workItem from="1728557269805" duration="5575000" />
+      <workItem from="1729071139969" duration="6359000" />
     </task>
     <servers />
   </component>

@@ -53,6 +53,12 @@ class Subcategory(models.Model):
     is_payment = models.BooleanField(default=False)
     old_price = models.IntegerField(default=0)
     price = models.BigIntegerField(default=0)
+    purchased_count = models.IntegerField(default=0)
+
+    def increment_purchased_count(self):
+        self.purchased_count += 1
+        self.save()
+        print(f"{self.name} xarid qilinganlar soni yangilandi: {self.purchased_count}")
 
     def update_course_duration(self):
         total_duration = sum(video.time for video in self.videos_set.all())

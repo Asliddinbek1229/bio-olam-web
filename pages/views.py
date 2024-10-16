@@ -147,6 +147,9 @@ def playlist_pay(request, id):
         # Xaridni `PurchasedPlaylist` modeliga yozish
         PurchasedPlaylist.objects.create(user=request.user, subcategory=subcategory)
 
+        # Subkategoriyani xarid qilganlar sonini yangilash
+        subcategory.increment_purchased_count()
+
         # Daromadlarni hisoblash
         teacher_income = Decimal(subcategory.price) * Decimal('0.60')
         admin_income = Decimal(subcategory.price) * Decimal('0.40')

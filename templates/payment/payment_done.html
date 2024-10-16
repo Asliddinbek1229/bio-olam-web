@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Payment{% endblock title %}
+{% block title %}<title>Payment</title>{% endblock title %}
 
 {% block content %}
 
@@ -36,7 +36,7 @@
            <div class="box">
               <i class="fas fa-user-graduate"></i>
               <div>
-                 <h3>+{{ subcategory.student_count }}</h3>
+                 <h3>+{{ subcategory.purchased_count }}</h3>
                  <p>Faol talabalar</p>
               </div>
            </div>
@@ -85,7 +85,7 @@
               <i class="fa-solid fa-scale-unbalanced"></i>
               <div>
                  <h3>{{ subcategory.price }} so'm</h3>
-                 <p>Eski narxi</p>
+                 <p>Chegirma narxi</p>
               </div>
            </div>
 

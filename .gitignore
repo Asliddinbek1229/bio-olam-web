@@ -23,6 +23,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.env
+venv
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -84,5 +86,3 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
-
-.env

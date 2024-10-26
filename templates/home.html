@@ -89,9 +89,13 @@
                     </div>
                  </div>
                  <div class="thumb">
-                    <img src="{{ subcategory.image.url }}" alt="">
+                    {% if subcategory.image %}
+                        <img src="{{ subcategory.image.url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'images/thumb-1.png' %}" alt=""> <!-- yoki default image -->
+                    {% endif %}
                     <span>{{ subcategory.videos_count }} ta video dars</span>
-                 </div>
+                </div>
                  <h3 class="title">{{ subcategory.name }}</h3>
                  <p style="font-size: 20px; color: green;"><b><span style="color: red; font-weight: 900">BEPUL</span> <i class="fa-regular fa-handshake"></i></b></p>
                  <a href="{% url "playlists_view" subcategory.id %}" class="inline-btn">Playlistni ko'rish</a>

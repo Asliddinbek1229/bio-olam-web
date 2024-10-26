@@ -14,7 +14,7 @@ urlpatterns = [
     path('courses/', include("courses.urls")),
     # path('quiz-app/', include("quiz_app.urls")),
     path('new-quiz/', include('questions.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     # path('admin/', admin.site.urls),

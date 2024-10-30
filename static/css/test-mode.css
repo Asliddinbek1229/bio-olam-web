@@ -1,0 +1,68 @@
+.test-mode-effect {
+  border-right: solid 3px rgba(0, 255, 0, .75);
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Source Code Pro', monospace;
+  color: #000000;
+  margin: 0 auto;
+}
+
+/* Animation */
+.test-mode-effect {
+  animation: animated-text 4s steps(29, end) 1s 1 normal both,
+             animated-cursor 600ms steps(29, end) infinite;
+}
+
+/* Text animation */
+@keyframes animated-text {
+  from { width: 0; }
+  to { width: 100%; } /* Kenglikni 100% ga belgilash */
+}
+
+/* Cursor animations */
+@keyframes animated-cursor {
+  from { border-right-color: rgba(0, 255, 0, .75); }
+  to { border-right-color: transparent; }
+}
+
+/* O'lchamlar uchun media queries */
+
+/* Kichik telefonlar (max-width: 320px) */
+@media (max-width: 320px) {
+  .test-mode-effect {
+    font-size: 16px; /* Kichik ekranlarda font o'lchami */
+    width: 90%; /* Kenglik 90% */
+  }
+}
+
+/* O'rta telefonlar (max-width: 480px) */
+@media (max-width: 480px) {
+  .test-mode-effect {
+    font-size: 18px; /* O'rta telefonlar uchun font o'lchami */
+    width: 85%; /* Kenglik 85% */
+  }
+}
+
+/* Katta telefonlar va kichik planshetlar (max-width: 768px) */
+@media (max-width: 768px) {
+  .test-mode-effect {
+    font-size: 20px; /* Katta telefonlar uchun font o'lchami */
+    width: 80%; /* Kenglik 80% */
+  }
+}
+
+/* Katta planshetlar (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .test-mode-effect {
+    font-size: 24px; /* Katta planshetlar uchun font o'lchami */
+    width: 75%; /* Kenglik 75% */
+  }
+}
+
+/* Stol kompyuterlari (min-width: 1025px) */
+@media (min-width: 1025px) {
+  .test-mode-effect {
+    font-size: 28px; /* Stol kompyuterlari uchun font o'lchami */
+    width: 520px; /* Aniq kenglik */
+  }
+}

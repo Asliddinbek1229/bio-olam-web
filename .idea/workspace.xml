@@ -7,7 +7,10 @@
     <list default="true" id="592f4038-e6f1-4ccb-9abb-7cbf30944e18" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.github/workflows/bot.yaml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.github/workflows/github-cd.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/test-mode.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +117,7 @@
       <workItem from="1729843997611" duration="9084000" />
       <workItem from="1729866897727" duration="3426000" />
       <workItem from="1729921672876" duration="2571000" />
-      <workItem from="1729928645988" duration="7399000" />
+      <workItem from="1729928645988" duration="10595000" />
     </task>
     <servers />
   </component>

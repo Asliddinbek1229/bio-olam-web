@@ -24,6 +24,12 @@
    color:#fff;
 }
 
+img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 html{
    font-size: 62.5%;
    overflow-x: hidden;
@@ -330,7 +336,7 @@ section{
 
 .side-bar .navbar a{
    display: block;
-   padding: 1.5rem;
+   padding: 1rem;
    font-size: 2rem;
 }
 

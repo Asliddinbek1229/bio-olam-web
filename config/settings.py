@@ -29,7 +29,10 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = ["imkon-edu.uz", "www.imkon-edu.uz", "https://imkon-edu.uz", "194.238.28.111", "*"]
+ALLOWED_HOSTS = ["imkon-edu.uz", "www.imkon-edu.uz", "194.238.28.111"]
+SECURE_SSL_REDIRECT = True  # HTTP’dan HTTPS’ga majburiy yo‘naltirish
+SESSION_COOKIE_SECURE = True  # Cookie’lar faqat HTTPS’da yuboriladi
+CSRF_COOKIE_SECURE = True  # CSRF tokenlari faqat HTTPS’da yuboriladi
 
 
 # Application definition
